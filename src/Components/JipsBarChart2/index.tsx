@@ -5,31 +5,31 @@ import { BarChart, Bar, XAxis, LabelList, Tooltip, Legend } from 'recharts';
 const data = [
   {
     name: 'Camps IDPS',
-    men: 87,
-    women: 59,
+    male: 24,
+    female: 37,
   },
   {
     name: 'IDP Returnees',
-    men: 92,
-    women: 74,
+    male: 19,
+    female: 27,
   },
   {
     name: 'Non-displaced',
-    men: 83,
-    women: 54,
+    male: 13,
+    female: 18,
   },
 ];
 
-type JipsBarChartProps ={
+type JipsBarChart2Props ={
   data?:any[],
   title?:string,
 }
-export default function JipsBarChart(props:JipsBarChartProps) {
+export default function JipsBarChart2(props:JipsBarChart2Props) {
   const { Title } = Typography;
   return (
     <div style={{ minHeight: "29vh", maxHeight: "30vh", padding: "10px" }}>
       <Typography>
-        <Title style={{ fontSize: "14px" }}>Literacy among persons 15 years and above</Title>
+        <Title style={{ fontSize: "14px" }}>Youth (15-24 years) not working and not in education</Title>
       </Typography>
       <BarChart
         width={400}
@@ -45,8 +45,8 @@ export default function JipsBarChart(props:JipsBarChartProps) {
         <XAxis dataKey="name" />
         <Tooltip />
         <Legend />
-        <Bar width={30} dataKey="men" fill="#505BA1" background={{ fill: '#eee' }} ><LabelList dataKey="men" position="top" /> </Bar>
-        <Bar dataKey="women" fill="#491746" background={{ fill: '#eee' }}><LabelList dataKey="women" position="top" /> </Bar>
+        <Bar width={30} dataKey="male" fill="#505BA1" background={{ fill: '#eee' }} ><LabelList dataKey="male" position="top" /> </Bar>
+        <Bar dataKey="female" fill="#491746" background={{ fill: '#eee' }}><LabelList dataKey="female" position="top" /> </Bar>
       </BarChart>
     </div>
   );

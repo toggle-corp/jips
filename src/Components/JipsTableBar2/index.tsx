@@ -14,7 +14,7 @@ const renderGraph = (text: string, index: number) => {
         <div style={{ width: "50px", height: 'auto', marginTop:"auto", marginBottom:"auto" }}>
             <ComposedChart
                 layout="vertical"
-                width={70}
+                width={80}
                 height={55}
                 data={dt}
             >
@@ -59,22 +59,22 @@ const cols = [
 const data = [
     {
         key: '1',
-        variables: 'relying on agriculture as their min livelihoods source',
-        incamp: 69,
-        returnee: 84,
-        non: 73,
+        variables: 'Persons below 20 years of age',
+        incamp: 57,
+        returnee: 56,
+        non: 49,
     },
     {
         key: '2',
-        variables: 'not having enought food or money to but food the 7 days preceding the survey',
-        incamp: 68,
-        returnee: 66,
-        non: 52,
+        variables: 'Households headed by a woman',
+        incamp: 35,
+        returnee: 35,
+        non: 25,
     },
 
 ];
 
-export default function JipsTableBar() {
+export default function JipsTableBar2() {
     return (
         <div>
             <Typography style={{ fontSize: "18px", color: "#0b0b92", fontWeight: 600, marginBottom: '25px' }}></Typography>

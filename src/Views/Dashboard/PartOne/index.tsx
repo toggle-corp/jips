@@ -1,8 +1,10 @@
 import React from 'react';
 import { Row, Col, Typography } from 'antd';
-import { JipsBarChart, JipsTable, JipsTableBar, JipsText } from '../../../Components';
+import { JipsBarChart, JipsTable, JipsTableBar, JipsText, TableBar } from '../../../Components';
 import { UsergroupDeleteOutlined, MoneyCollectOutlined } from '@ant-design/icons';
 import JipsStackedBarChart from '../../../Components/JipsStackedBarChart';
+import JipsBarChart2 from '../../../Components/JipsBarChart2';
+import JipsTableBar2 from '../../../Components/JipsTableBar2';
 
 
 export default function PartOne() {
@@ -24,11 +26,11 @@ export default function PartOne() {
                             </Col>
                         </Row>
                     </Col>
-                    <Col span={12} style={{padding:"10px"}}>
+                    <Col span={12} style={{ padding: "10px" }}>
                         <Row></Row>
-                        <Row>   
+                        <Row>
                             <Col span={24}>
-                                <JipsTableBar />
+                                <TableBar />
                             </Col>
                         </Row>
                     </Col>
@@ -39,33 +41,37 @@ export default function PartOne() {
                             <Col><Typography style={{ fontSize: "18px", color: "#0b0b92", fontWeight: 600, marginBottom: '25px' }}> <UsergroupDeleteOutlined /> Basic demographics of the samples</Typography></Col>
                         </Row>
                         <Row>
-                            <Col span={14}><JipsTableBar /></Col>
-                            <Col span={10}><JipsBarChart /></Col>
+                            <Col span={14}><JipsTableBar2 /></Col>
+                            <Col span={10} style={{ borderLeft: "2px solid #e8e8e8", paddingTop: "5px" }} ><JipsBarChart /></Col>
                         </Row>
                     </Col>
                 </Row>
             </Col>
-            <Col span={8} style={{ height: "87vh" }}>
-                <Row style={{paddingLeft:"30px"}}>
+            <Col span={8} style={{ height: "87vh", borderLeft:"2px solid #e8e8e8" }}>
+                <Row style={{ paddingLeft: "30px" }}>
                     <Col span={24}>
                         <Typography style={{ fontSize: "18px", color: "#0b0b92", fontWeight: 600, marginBottom: '25px' }}> <MoneyCollectOutlined /> Livelihoods</Typography>
                     </Col>
                 </Row>
                 <Row>
                     <Col>
-                        <JipsStackedBarChart />
+                        <JipsTableBar />
                     </Col>
                 </Row>
                 <Row>
                     <Col>
                         <JipsStackedBarChart />
+                        <Row>
+                    <Col style={{ paddingTop: "120px", paddingLeft:"50px"}}>
+                    <JipsBarChart2/>
                     </Col>
                 </Row>
-                <Row>
-                    <Col>
                     </Col>
                 </Row>
+
+
             </Col>
         </Row>
+
     );
 }

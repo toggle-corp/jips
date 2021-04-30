@@ -59,26 +59,47 @@ const cols = [
 const data = [
     {
         key: '1',
-        variables: 'relying on agriculture as their min livelihoods source',
-        incamp: 69,
-        returnee: 84,
-        non: 73,
+        variables: 'own land',
+        incamp: 14,
+        returnee: 70,
+        non: 70,
     },
     {
         key: '2',
-        variables: 'not having enought food or money to but food the 7 days preceding the survey',
-        incamp: 68,
-        returnee: 66,
-        non: 52,
+        variables: 'own land and have registration documents',
+        incamp: "n/a",
+        returnee: 3,
+        non: 6,
     },
-
+    {
+        key: '3',
+        variables: 'rent land',
+        incamp: 84,
+        returnee: 28,
+        non: 28,
+    },
+    {
+        key: '3',
+        variables: 'reportbconflicts/issues with their agriculture land',
+        incamp: 23,
+        returnee: 27,
+        non: 13,
+    },
+    {
+        key: '4',
+        variables: 'acesss the same land as before displacement ',
+        incamp: 17,
+        returnee: 83,
+        non: "n/a",
+    },
 ];
 
-export default function JipsTableBar() {
+export default function TableBar() {
     return (
         <div>
-            <Typography style={{ fontSize: "18px", color: "#0b0b92", fontWeight: 600, marginBottom: '25px' }}></Typography>
-        <div style={{minHeight:"29vh"}}>
+            <Typography style={{ fontSize: "18px", color: "#0b0b92", fontWeight: 600, marginBottom: '25px' }}> Acess to agriculture land</Typography>
+        <div style={{minHeight:"29vh", padding:"0px", marginTop:'20px'}}>
+        <Typography>Households that:</Typography>
             <Table dataSource={data} columns={cols} pagination={false} />
         </div>
         </div>
