@@ -1,6 +1,6 @@
-import React, { PureComponent } from 'react';
-import { Typography } from 'antd';
-import { ComposedChart, Bar, Cell, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer, LabelList } from 'recharts';
+import React, { useEffect } from 'react';
+import { ComposedChart, Bar, XAxis, YAxis, Tooltip, Legend, LabelList } from 'recharts';
+import { Dimension } from '../../types';
 
 const data = [
   {
@@ -23,21 +23,21 @@ const data = [
   },
 ];
 
-export default class JipsStackedBarChart extends PureComponent {
+type JipsStackedBarChartProps = {
+  title?:string,
+  data?:any[],
+  height:number,
+  width:number,
+} 
 
-  getStackedBars = () => {
-
-  }
-  
-  render() {
-    const { Title } = Typography;
-    return (
-      <div style={{ minHeight: "29vh", maxHeight: "30vh", padding: "10px" }} >
-        <Typography>Main activity of working age persons (15-64 years)</Typography>
+export default function JipsStackedBarChart (props:JipsStackedBarChartProps) {
+  const {height, width} = props;
+  return (
+      <div style={{ minHeight: "29vh"}} >
+        <h3>Main activity of working age persons (15-64 years)</h3>
         <ComposedChart
-
-          width={600}
-          height={280}
+          width={width}
+          height={height}
           data={data}
           layout="vertical"
           margin={{
@@ -52,18 +52,16 @@ export default class JipsStackedBarChart extends PureComponent {
           <Tooltip />
           <Legend />
           <Bar dataKey="Work for profit" stackId="a" fill="#505BA1" >
-          <LabelList dataKey="Work for profit" position="middle" fill="#fff"/>
+            <LabelList dataKey="Work for profit" position="middle" fill="#fff"/>
           </Bar>
           <Bar dataKey="Own-use farming" stackId="a" fill="#491746" >
-          <LabelList dataKey="Own-use farming" position="middle" fill="#fff"/>
-            </Bar>
+            <LabelList dataKey="Own-use farming" position="middle" fill="#fff"/>
+          </Bar>
           <Bar dataKey="Out of labour force" stackId="a" fill="#852D57" >
-          <LabelList dataKey="Out of labour force" position="middle" fill="#fff"/>
+            <LabelList dataKey="Out of labour force" position="middle" fill="#fff"/>
           </Bar>
           
         </ComposedChart>
       </div>
-
-    );  
-  }
+  );
 }

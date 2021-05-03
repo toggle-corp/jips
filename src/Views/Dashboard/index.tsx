@@ -1,13 +1,12 @@
-
 import React, { useState } from 'react';
-import { Button, Row, Col } from 'antd';
-import { JipsNavBar } from '../../Components';
 import html2canvas from 'html2canvas';
-
+import { JipsNavBar } from '../../Components';
+import { Button } from '@togglecorp/toggle-ui';
 import PartOne from './PartOne';
-
-import './styles.css';
 import PartTwo from './PartTwo';
+import JipsFooter from '../../Components/JipsFooter';
+
+import styles from './styles.module.scss';
 
 function Dashboard() {
     const [pageNum, setPageNum] = useState<number>(0);
@@ -20,34 +19,35 @@ function Dashboard() {
             link.href = canvas.toDataURL();
             link.target = '_blank';
             link.click();
-                });
+        });
     }
     const handlepage = () => {
-        (pageNum == 0) ? setPageNum(1) : setPageNum(0);
+        (pageNum === 0) ? setPageNum(1) : setPageNum(0);
     }
-
     return (
-        <div className="content">
-            <div className="main" ref={divRef}>
+        <>
+        <div className={styles.dashboard}>
+            <div className={styles.main} ref={divRef}>
                 <JipsNavBar
                     title="KEY INDICATORS - DURABLE SOLUTIONS AND BASELINE ANALYSIS TAWILA LOCALITY, NORTH DARFUR"
                     subTitle="for the DSWG and the UN Peacebuilding Fund in Sudan"
                 />
-                <div 
-                    className="container"
-                    style={{marginTop: "10px"}}
-                >
+                <div className={styles.container}>
+                    {pageNum === 0 && <PartOne /> }
                     {pageNum > 0 && (<PartTwo />) }
-                    {pageNum == 0 && <PartOne /> }
                 </div>
+                <JipsFooter
+                    title="Data collection done in December 2020 and January 2021, Tawaila Locality"
+                    subTitle="feedback:info@jips.org"
+                />
             </div>
-            <div className="download">
-                <Button className="primary" onClick={handleClick}> Click to save</Button>
-                <Button className="primary" onClick={handlepage}> Next Page</Button>
+            <div className={styles.buttons}>
+                <Button className={"primary"} name="save" onClick={handleClick}>Save Dashboard</Button>
+                <Button className={"primary"} name="next" onClick={handlepage}>{(pageNum > 0) ? "Prev Page" : "Next Page" }</Button>
             </div>
 
         </div>
+        </>
     );
 }
-
 export default Dashboard;

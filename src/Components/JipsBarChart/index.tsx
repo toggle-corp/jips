@@ -1,5 +1,4 @@
-import React, { PureComponent } from 'react';
-import { Typography } from 'antd';
+import React from 'react';
 import { BarChart, Bar, XAxis, LabelList, Tooltip, Legend } from 'recharts';
 
 const data = [
@@ -23,17 +22,17 @@ const data = [
 type JipsBarChartProps ={
   data?:any[],
   title?:string,
+  height:number,
+  width:number,
 }
+
 export default function JipsBarChart(props:JipsBarChartProps) {
-  const { Title } = Typography;
+  const {height, width} = props;
   return (
-    <div style={{ minHeight: "29vh", maxHeight: "30vh", padding: "10px" }}>
-      <Typography>
-        <Title style={{ fontSize: "14px" }}>Literacy among persons 15 years and above</Title>
-      </Typography>
+    <div style={{ minHeight:height}}>
       <BarChart
-        width={400}
-        height={300}
+        width={width}
+        height={height}
         data={data}
         margin={{
           top: 5,

@@ -1,0 +1,28 @@
+.dashboard {
+    padding: 0;
+    margin: 0;
+    width: 100%;
+    
+    >.main{
+        width: 100%;
+        z-index: 0;
+    }
+
+    >.buttons {
+        display: flex;
+        flex-direction: row;
+        padding: 0;
+        margin-right: 0px;
+        margin-left: 80%;
+    }
+
+    .container{
+        display: block;
+        width: 95%;
+        position: relative;
+        height: fit-content;
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+}

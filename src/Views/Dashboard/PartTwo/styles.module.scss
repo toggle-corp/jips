@@ -1,0 +1,11 @@
+.row{
+    width: 100%;
+    height: auto;
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+}
+.col{
+    background-color: crimson;
+    width: 100%;
+}
