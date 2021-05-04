@@ -1,5 +1,4 @@
 import React from 'react';
-import { Table, Typography } from 'antd';
 import { ComposedChart, Bar, Tooltip, XAxis, YAxis, LabelList } from 'recharts';
 
 const colors = ["#505BA1", "#491746", "#852D57"];
@@ -77,9 +76,8 @@ const data = [
 export default function JipsTableBar() {
     return (
         <div>
-            <Typography style={{ fontSize: "18px", color: "#0b0b92", fontWeight: 600, marginBottom: '25px' }}></Typography>
         <div style={{minHeight:"29vh"}}>
-            <Table dataSource={data} columns={cols} pagination={false} />
+            <h1>JipsTableBar component</h1>
         </div>
         </div>
     );

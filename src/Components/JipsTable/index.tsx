@@ -1,134 +1,141 @@
-import  React  from 'react';
-// import { isDefined } from '@togglecorp/fujs';
-// import Table, { TableProps, Column } from '#components/Table';
-// import useFiltering, { useFilterState, FilterContext } from '#components/Table/useFiltering';
-// import useOrdering, { useOrderState, OrderContext } from '#components/Table/useOrdering';
-// import useSorting, { useSortState, SortContext } from '#components/Table/useSorting';
-// import {
-//     createStringColumn,
-//     createNumberColumn,
-//     createDateColumn,
-//     createDateTimeColumn,
-//     createYesNoColumn,
-// } from '#components/Table/predefinedColumns';
-export default function JipsTable() {
+import React, {useState, useMemo } from 'react';
+import {
+    Table,
+    //TableColumn,
+    //TableHeaderCell,
+    //TableHeaderCellProps,
+    //useSortState,
+    //Pager,
+} from '@togglecorp/toggle-ui';
+import { createTextColumn } from '../tools/tableHelpers';
+
+import Message from '../tools/Message';
+import Container from '../tools/Container/index';
+
+import styles from './styles.module.scss';
+
+const defaultSorting = {
+    name: 'created_at',
+    direction: 'dsc', 
+};
+
+const keySelector = (item: any) => item.key;
+
+interface JipsTableProps {
+    className?: string;
+}
+interface ChartData {
+    key: string;
+    variables: string;
+    households: number;
+    individual: number;
+    tags: string[];
+}
+
+function JipsTable(props: JipsTableProps) {
+
+    //const sortState = useSortState();
+    // const { sorting } = sortState;
+    const validSorting = defaultSorting;
+
+    const ordering = validSorting.direction === 'asc'
+        ? validSorting.name
+        : `-${validSorting.name}`;
+
+    const [page, setPage] = useState(1);
+    const [pageSize, setPageSize] = useState(10);
+
+    const totalDataCount = 10;
+    const chartData: ChartData[] = [
+        {
+            key: '1',
+            variables: 'IDPS in capms',
+            households: 431,
+            individual: 2500,
+            tags: ["camps"],
+        },
+        {
+            key: '2',
+            variables: 'IDP returnees',
+            households: 399,
+            individual: 2448,
+            tags: ["returnee"],
+        },
+        {
+            key: '3',
+            variables: 'Non-displaced',
+            households: 321,
+            individual: 1705,
+            tags: ["nondisplaced"],
+        },
+    ];
+
+    const chartColumns = useMemo(
+        () => {
+            // eslint-disable-next-line max-len
+            return [
+                createTextColumn<ChartData, string>(
+                    'key',
+                    'Key',
+                    (item: any) => item.key,
+                ),
+                createTextColumn<ChartData, undefined>(
+                    'variables',
+                    'Variables',
+                    (item: any) => item.variables,
+                ),
+                createTextColumn<ChartData, undefined>(
+                    'house_holds',
+                    'House Holds',
+                    (item: any) => item.households,
+                ),
+                createTextColumn<ChartData, undefined>(
+                    'individual',
+                    'Individual',
+                    (item: any) => item.individual,
+                ),
+                createTextColumn<ChartData, undefined>(
+                    'tags',
+                    'Tags',
+                    (item: any) => item.tags,
+                ),
+            ];
+        },
+        [],
+    );
+
     return (
-        <>
-        <h3>This is Scope of the Study component</h3>
-        </>
+        <Container
+            heading="Chart Data"
+            contentClassName={styles.content}
+            className={styles.container}
+            //footerContent={(
+            //    <Pager
+            //        activePage={page}
+            //        itemsCount={totalDataCount}
+            //        maxItemsPerPage={pageSize}
+            //        onActivePageChange={setPage}
+            //        onItemsPerPageChange={setPageSize}
+            //    />
+            //)}
+        >
+            {totalDataCount > 0 && (
+                //<SortContext.Provider value={sortState}>
+                //</SortContext.Provider>
+                    <Table
+                        className={styles.table}
+                        data={chartData}
+                        keySelector={keySelector}
+                        columns={chartColumns}
+                    />
+            )}
+            {totalDataCount <= 0 && (
+                <Message
+                    message="No actors found."
+                />
+            )}
+        </Container>
     );
 }
 
-// interface Program {
-//     id: number;
-//     name: string;
-//     budget: number | undefined;
-//     date: string;
-// }
-// const data: Program[] = [
-//     {
-//         id: 1,
-//         name: 'Program A',
-//         budget: 123123,
-//         date: '2012-10-12T12:00:00',
-//     },
-//     {
-//         id: 2,
-//         name: 'Program B',
-//         budget: 100,
-//         date: '2010-11-02T10:12:10',
-//     },
-//     {
-//         id: 3,
-//         name: 'Program C',
-//         budget: 10000,
-//         date: '1994-04-17T01:04:12',
-//     },
-//     {
-//         id: 4,
-//         name: 'Program D',
-//         budget: undefined,
-//         date: '2021-08-23T06:01:18',
-//     },
-// ];
-
-// const columns = [
-//     createNumberColumn<Program, number>(
-//         'id',
-//         'ID',
-//         (item) => item.id,
-//         { sortable: true, orderable: true },
-//     ),
-//     createStringColumn<Program, number>(
-//         'name',
-//         'Name',
-//         (item) => item.name,
-//         { sortable: true, filterType: 'string', orderable: true, cellAsHeader: true },
-//     ),
-//     createNumberColumn<Program, number>(
-//         'budget',
-//         'Budget',
-//         (item) => item.budget,
-//         { sortable: true, filterType: 'number', orderable: true },
-//     ),
-//     createDateColumn<Program, number>(
-//         'date',
-//         'Date',
-//         (item) => item.date,
-//         { sortable: true, orderable: true },
-//     ),
-//     createDateTimeColumn<Program, number>(
-//         'datetime',
-//         'Date Time',
-//         (item) => item.date,
-//         { sortable: true, orderable: true },
-//     ),
-//     createYesNoColumn<Program, number>(
-//         'aboveBudget',
-//         'Above Budget',
-//         (item) => isDefined(item.budget) && item.budget > 100,
-//         { sortable: true, orderable: true },
-//     ),
-// ];
-
-// const staticColumnOrdering = [
-//     { name: 'id' },
-//     { name: 'name' },
-//     { name: 'budget' },
-//     { name: 'date' },
-//     { name: 'datetime' },
-//     { name: 'aboveBudget' },
-// ];
-
-// const Template: Story<TableProps<Program, number, Column<Program, number, any, any>>> = (args) => {
-//     const sortState = useSortState();
-//     const { sorting } = sortState;
-
-//     const filterState = useFilterState();
-//     const { filtering } = filterState;
-
-//     const orderState = useOrderState(staticColumnOrdering);
-//     const { ordering } = orderState;
-
-//     const orderedColumns = useOrdering(columns, ordering);
-//     const filteredData = useFiltering(filtering, orderedColumns, data);
-//     const sortedData = useSorting(sorting, orderedColumns, filteredData);
-//         return (
-//             <SortContext.Provider value={sortState}>
-//                 <FilterContext.Provider value={filterState}>
-//                     <OrderContext.Provider value={orderState}>
-//                         <Table
-//                             {...args}
-//                             columns={orderedColumns}
-//                             data={sortedData}
-//                         />
-//                     </OrderContext.Provider>
-//                 </FilterContext.Provider>
-//             </SortContext.Provider>
-//         );
-//     };
-// }
-// export const Default = Template.bind({});
-// Default.args = {
-//     keySelector: (d) => d.id,
-// };
+export default JipsTable;
