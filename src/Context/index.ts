@@ -1,2 +1,4 @@
-import {LangContext, Language} from './LangContext';
-export {LangContext, Language,}
+import {LanguageContext} from './LangContext';
+import {DataContext} from './DataContext';
+
+export {DataContext, LanguageContext}

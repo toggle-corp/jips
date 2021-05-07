@@ -17,8 +17,8 @@ nav {
             width: auto;
             height: 10vh;
             margin-right: auto;
+            opacity: 1;
         }
-    
         >.wrapper {
             margin-left: auto;
             display: flex;
@@ -28,31 +28,34 @@ nav {
             margin-top: auto;
             margin-bottom: auto;
             height: 9vh;
-            justify-content: space-evenly;
-    
+            justify-content: space-around;
             > .title {
-                font-family: 'Times New Roman', Times, serif;
+                font-family: 'Overpass', sans-serif;
                 font-size: x-large;
-                font-weight: 600;
+                font-weight: 700;
                 letter-spacing: 1px;
                 text-transform: uppercase;
                 text-align: right;
                 word-wrap: break-word;
                 line-height: 1;
-                color: #0b0b92;
+                color: #505BA1;
+                height:72px;
+                opacity:1;
                 padding: 0;
                 display: block;
             }
-            
             > .subtitle {
-                font-family: 'Times New Roman', Times, serif;
+                font-family: 'Overpass', sans-serif;
                 font-size: medium;
                 font-weight: 600;
                 letter-spacing: 1px;
                 text-transform: lowercase;
                 text-align: right;
-                color: #000000;
+                color: #2B2B2B;
                 display: block;
+                top:90px;
+                height:28px;
+                opacity:1;
             }
         }
     }

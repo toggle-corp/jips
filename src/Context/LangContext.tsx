@@ -1,7 +1,4 @@
 import React from 'react';
+import { Language } from '../types';
 
-export enum Language {en = "ENG", ar = "ARA"};
-export class Lang {
-    static language : Language = Language.en;
-}
-export const LangContext= React.createContext(Lang);
+export const LanguageContext= React.createContext<Language>(Language.en);

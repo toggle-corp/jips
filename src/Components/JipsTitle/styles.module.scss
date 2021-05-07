@@ -1,0 +1,13 @@
+.title{
+    display: inline;
+    width: fit-content;
+    flex-direction: row;
+    width: 100%;
+    font-family: 'Overpass', sans-serif;
+    font-size: 26px;
+    font-weight: bold;
+    color: #505BA1;
+    :nth-child(even){
+        margin-left:10px
+    }
+}

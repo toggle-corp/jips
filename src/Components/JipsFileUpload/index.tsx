@@ -1,24 +1,26 @@
 import React, { ChangeEvent, useContext, useEffect, useState } from 'react';
 import styles from './styles.module.scss';
 import {Switch} from '@togglecorp/toggle-ui';
-import {LangContext, Language} from '../../Context';
+import {LanguageContext} from '../../Context';
+import { Language } from '../../types';
 
 type JipsFileUploadProps = {
     name: string,
     multiple: boolean,
     onFileOpen?: (file: File) => void,
+    setLang: (lang:Language) => void,
 }
 
 export default function JipsFileUpload(props: JipsFileUploadProps) {
 
-    const { name, multiple, onFileOpen } = props;
+    const { name, multiple, onFileOpen, setLang} = props;
 
-    const lang = useContext(LangContext);
-    
+    const lang = useContext(LanguageContext);
+
     const [isEn, setIsEn] = useState<boolean>(true);
 
     const handleSelectLang = () =>{
-        lang.language = (!isEn) ? Language.en : Language.ar;
+        setLang((!isEn)?Language.en:Language.ar);
         setIsEn(!isEn);
     }
 
@@ -29,7 +31,7 @@ export default function JipsFileUpload(props: JipsFileUploadProps) {
     }, [onFileOpen]);
 
     useEffect(()=>{
-        setIsEn(lang.language === Language.en);
+        setIsEn(lang === Language.en);
     }, [lang]);
 
     return (

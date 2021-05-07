@@ -1,27 +1,179 @@
 import React from 'react';
-import { JipsBarChart, JipsStackedBarChart } from '../../../Components';
-import styles from './styles.module.scss';
+import { JipsBarChart, JipsStackedBarChart, JipsTable, JipsTableBar, JipsTitle } from '../../../Components';
+import JipsText from '../../../Components/JipsText';
+import { Dimension, Language, Section, SubSection } from '../../../types';
+import SideBar from '../SideBar';
+import { _cs } from '@togglecorp/fujs';
+import { Doc } from '../../../types';
 
-export default function PartTwo() {
+import { FaPeopleCarry } from "react-icons/fa";
+import { AiFillSafetyCertificate, AiOutlineSetting } from "react-icons/ai";
+
+import styles from './styles.module.scss';
+import { getBarChartData, getTableBarData, getTableData, tableData } from '../../../utils/dataUtil';
+import { DataContext } from '../../../Context/DataContext';
+import { LanguageContext } from '../../../Context';
+
+export default function PartOne() {
+
+    const [dimension, setDimension] = React.useState<Dimension>({ height: 0, width: 0 });
+
+    const [scopeData, setScopeData] = React.useState<tableData>({columns:[], rows:[]});
+    const [sections, setSections] = React.useState<Section[]>([]);
+
+    const language:Language = React.useContext(LanguageContext);
+    const data:Doc = React.useContext(DataContext);
+
+    React.useEffect(() => {
+        const width = window.screen.availWidth - 20;
+        const height = window.screen.availHeight - 100;
+        setDimension({ height: height, width: width });
+        const tableInfo:tableData = getTableData(data.sections[0].body[0]);
+        getTableBarData(data.sections[0].body[0]);
+        setScopeData(tableInfo);
+        const filteredSections = data.sections.filter((section)=>section.heading && section.heading!= "")
+        setSections(filteredSections);
+    }, [data]);
+
+    const displaySectionFive = () =>{
+        if(sections.length > 4){
+            const filteredSubSecs = sections[4].body.filter((subsec:SubSection)=>subsec.vars.length>0);
+
+            const serviceData = (filteredSubSecs.length > 0) ? getTableBarData(filteredSubSecs[0]):{columns:[], rows:[]};
+            const servceTitle = (filteredSubSecs.length > 0) ? filteredSubSecs[0].subHeading:"";
+
+            const barChart = (filteredSubSecs.length > 2) ? getBarChartData({subsec:filteredSubSecs[2]}) : [];
+            const barchartTitle = (filteredSubSecs.length > 2) ? filteredSubSecs[2].subHeading : "";
+            return(
+                <>
+                    <div className={_cs(styles.bb)}>
+                        <JipsTableBar columns={serviceData.columns} data={serviceData.rows} title={servceTitle} />
+                    </div>
+                    <div className={_cs(styles.bb)}>
+                        
+                    </div>
+                    <div className={""}>
+                        <JipsBarChart data={barChart} title={barchartTitle} height={300} width={400} />
+                    </div>
+                </>
+            );
+        }
+        return "No data available!"
+    }
+
+    const displaySectionSix = ()=>{
+        if(sections.length > 5){
+            const filteredSubSecs = sections[5].body.filter((subsec:SubSection)=>subsec.vars.length>0);
+            const disp = filteredSubSecs.map((subsec:SubSection)=>{
+                const colRows = getTableBarData(subsec);
+                return <JipsTableBar columns={colRows.columns} data={colRows.rows} title={subsec.subHeading} />
+            });
+            return disp;
+        }
+        return "No data available!"
+    }
+
+    const displaySectionSeven = ()=>{
+        if(sections.length > 6){
+            var rowCols;
+            var cahrtData=[];
+            const filteredSubSecs = sections[6].body.filter((subsec:SubSection)=>subsec.vars.length>0);
+            rowCols = (filteredSubSecs.length > 0) ? getTableBarData(filteredSubSecs[1]) : {columns: [], rows:[]};
+            cahrtData = (filteredSubSecs.length > 1)? getBarChartData({subsec:filteredSubSecs[0]}) : [];
+
+            return (
+                <div className={_cs(styles.row)}>
+                    <div className={_cs(styles.w40, styles.p5, styles.br)}>
+                        {filteredSubSecs.length > 0 &&(
+                            <JipsBarChart data={cahrtData} height={220} width={300} title={filteredSubSecs[0].subHeading} />
+                        )}
+                    </div>
+                    <div className={_cs(styles.w60, styles.p5)}>
+                        { filteredSubSecs.length > 1 && (
+                            <JipsTableBar columns={rowCols.columns} data={rowCols.rows} title={filteredSubSecs[1].subHeading} />
+                        )}
+                    </div>
+                </div>
+            );
+        }
+        return "No data available!"
+    }
+
+    const displaySectionEight = () => {
+        if(sections.length > 7){
+            var rowCols;
+            const filteredSubSecs = sections[7].body.filter((subsec:SubSection)=>subsec.vars.length>0);
+            rowCols = (filteredSubSecs.length > 0) ? getTableBarData(filteredSubSecs[0]) : {columns: [], rows:[]};
+
+            return (
+                <>
+                    { filteredSubSecs.length > 1 && (
+                        <JipsTableBar columns={rowCols.columns} data={rowCols.rows} title={filteredSubSecs[0].subHeading} />
+                    )}
+                </>
+            );
+        }
+        return "No data available!"
+    }
+
     return (
-        <>
-            <h1>This is part two</h1>
-            <div className={styles.row}>
-                <div className={styles.col}>
-                    <div className={styles.row}>
-                        <div className={styles.col}>
-                            <JipsBarChart height={200} width={300} />
+        <div className={_cs(styles.row, styles.mt5)}>
+            <SideBar className={_cs(styles.br, styles.p5)}>
+                {sections.length > 4 && (
+                    <>
+                        <JipsTitle title={sections[4].heading} icon={<AiOutlineSetting />} />
+                        <div className={ _cs(styles.pt5)}>
+                            {displaySectionFive()}
                         </div>
-                        <div className={styles.col}>
-                            <JipsBarChart height={200} width={300} />
-                        </div>
-                        <div className={styles.col3}>
-                            <JipsBarChart height={200} width={300} />
-                        </div>
+                    </>
+                )}
+            </SideBar>
+
+            <div className={styles.w67}>
+                <div className={_cs(styles.row, styles.bb)}>
+                    <div className={_cs(styles.col, styles.w50, styles.p5, styles.br)}>
+                        {sections.length>5 &&(
+                            <>
+                                <JipsTitle title={sections[5].heading} icon={<FaPeopleCarry/>}/>
+                                <div className={_cs(styles.row, styles.mt10)}>
+                                    {
+                                        displaySectionSix()
+                                    }
+                                </div>
+                            </>
+                        )}
+                    </div>
+                    <div className={_cs(styles.col, styles.w50, styles.p5)}>
+                        {sections.length>7 &&(
+                            <>
+                                <JipsTitle title={sections[7].heading} icon={<FaPeopleCarry/>}/>
+                                <div className={_cs(styles.row, styles.mt10)}>
+                                    {
+                                        displaySectionEight()
+                                    }
+                                </div>
+                            </>
+                        )}
+                    </div>
+                </div>
+
+                <div className={_cs(styles.row, styles.pt10)}>
+                    <div className={_cs(styles.col, styles.p5)}>
+                        {sections.length>6 &&(
+                            <>
+                                <JipsTitle title={sections[6].heading} icon={<AiFillSafetyCertificate/>}/>
+                                <div className={_cs(styles.row, styles.mt10)}>
+                                    {
+                                        displaySectionSeven()
+                                    }
+                                </div>
+                            </>
+                        )}
                     </div>
                 </div>
 
             </div>
-        </>
+        </div>
     );
+
 }

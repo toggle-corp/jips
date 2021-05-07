@@ -5,14 +5,22 @@ import { Button } from '@togglecorp/toggle-ui';
 import PartOne from './PartOne';
 import PartTwo from './PartTwo';
 import JipsFooter from '../../Components/JipsFooter';
+import { DataContext } from '../../Context/DataContext';
+import { Doc } from '../../types';
 
 import styles from './styles.module.scss';
 
 function Dashboard() {
     const [pageNum, setPageNum] = useState<number>(0);
+    const [state, setState] = useState({"heading":"", "subHeading":"", "footer":""});
+
     const divRef = React.useRef<HTMLDivElement>(null);
+
+    const data:Doc = React.useContext(DataContext);
+
     const handleClick = async (ev: any) => {
         html2canvas(divRef.current!).then((canvas: HTMLCanvasElement) => {
+            console.log(divRef.current);
             let link = document.createElement("a");
             document.body.appendChild(link);
             link.download = "html_image.jpg";
@@ -21,6 +29,16 @@ function Dashboard() {
             link.click();
         });
     }
+
+    React.useEffect(()=>{
+        const header = data.header.split("\n")[0];
+        const subhead = (data.header.split("\n").length > 0)? data.header.split("\n")[1] : "";
+        const footer = data.footer;
+        console.log(subhead, header);
+        setState({ heading: header, subHeading:subhead, footer:footer });
+
+    }, [data]);
+
     const handlepage = () => {
         (pageNum === 0) ? setPageNum(1) : setPageNum(0);
     }
@@ -29,15 +47,15 @@ function Dashboard() {
         <div className={styles.dashboard}>
             <div className={styles.main} ref={divRef}>
                 <JipsNavBar
-                    title="KEY INDICATORS - DURABLE SOLUTIONS AND BASELINE ANALYSIS TAWILA LOCALITY, NORTH DARFUR"
-                    subTitle="for the DSWG and the UN Peacebuilding Fund in Sudan"
+                    title={state.heading}
+                    subTitle={state.subHeading}
                 />
                 <div className={styles.container}>
                     {pageNum === 0 && <PartOne /> }
-                    {pageNum > 0 && (<PartTwo />) }
+                    {pageNum > 0 && <PartTwo /> }
                 </div>
                 <JipsFooter
-                    title="Data collection done in December 2020 and January 2021, Tawaila Locality"
+                    title={state.footer}
                     subTitle="feedback:info@jips.org"
                 />
             </div>
@@ -51,3 +69,4 @@ function Dashboard() {
     );
 }
 export default Dashboard;
+

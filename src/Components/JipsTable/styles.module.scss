@@ -1,7 +1,11 @@
+.ultraLarge{
+    font-size: xxx-large;
+    border-style: none;
+}
 .container {
     flex:1;
     margin: var(--spacing-medium);
-    padding: var(--spacing-medium);
+    padding: 5px;
 }
 
 .content {
@@ -24,3 +28,4 @@
         }
     }
 }
+
