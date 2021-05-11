@@ -13,7 +13,7 @@ type JipsStackedBarChartProps = {
 }
 
 export default function JipsStackedBarChart (props:JipsStackedBarChartProps) {
-  const {height, width, icon, title, data} = props;
+    const {height, width, icon, title, data} = props;
 
   const [graphData, setGraphData] = React.useState<any>([]);
 
@@ -22,14 +22,13 @@ export default function JipsStackedBarChart (props:JipsStackedBarChartProps) {
     const bars:any = [];
     keySet.slice(2).forEach((payload:string, index:number)=>{
       const bar = <Bar 
-                    dataKey={payload} 
-                    stackId="a" 
+                    dataKey={payload}
+                    stackId="a"
                     fill={colors[index%3]}
                     >
                     <LabelList dataKey={payload} position="middle" fill="#fff"/>
                   </Bar>;
       bars.push(bar);
-        
     });
     return bars;
   }

@@ -1,5 +1,5 @@
 import React from 'react';
-import { JipsBarChart, JipsStackedBarChart, JipsTable, JipsTableBar, JipsTitle } from '../../../Components';
+import { JipsBarChart, JipsTable, JipsTableBar, JipsTitle } from '../../../Components';
 import JipsText from '../../../Components/JipsText';
 import { Dimension, Language, Section, SubSection } from '../../../types';
 import SideBar from '../SideBar';
@@ -11,9 +11,10 @@ import { GiTakeMyMoney, GiGrain } from "react-icons/gi";
 import { AiFillFile, AiFillSafetyCertificate } from "react-icons/ai";
 
 import styles from './styles.module.scss';
-import { getBarChartData, getTableBarData, getTableData, tableData } from '../../../utils/dataUtil';
+import { getActivityData, getGenderActivityData, getBarChartData, getTableBarData, getTableData, tableData } from '../../../utils/dataUtil';
 import { DataContext } from '../../../Context/DataContext';
 import { LanguageContext } from '../../../Context';
+import StackedBarChart from '../../../Components/StackedBarChart';
 
 export default function PartOne() {
 
@@ -81,11 +82,10 @@ export default function PartOne() {
             const houseData = (filteredSubSecs.length > 0) ? getTableBarData(filteredSubSecs[0]):{columns:[], rows:[]};
             const houseTitle = (filteredSubSecs.length > 0) ? filteredSubSecs[0].subHeading:"";
 
-
-            const maleStack = (filteredSubSecs.length > 1) ? getBarChartData({subsec:filteredSubSecs[1], filterKey:"male"}) : [];
-            const feMaleStack = (filteredSubSecs.length > 1) ? getBarChartData({subsec:filteredSubSecs[1], filterKey:"female"}) : [];
-            const StackBarchartTitle = (filteredSubSecs.length > 1) ? filteredSubSecs[1].subHeading : "";
-
+            const activities = filteredSubSecs.length > 1 ? getActivityData(filteredSubSecs[1]) : [];
+            const idpsInCampsMainActivity = getGenderActivityData(activities, 'IDPs in camps');
+            const idpsReturneesMainActivity = getGenderActivityData(activities, 'IDP returnees');
+            const nonDisplacedMainActivity = getGenderActivityData(activities, 'Non-displaced');
 
             const barChart = (filteredSubSecs.length > 2) ? getBarChartData({subsec:filteredSubSecs[2]}) : [];
             const barchartTitle = (filteredSubSecs.length > 2) ? filteredSubSecs[2].subHeading : "";
@@ -95,13 +95,21 @@ export default function PartOne() {
                         <JipsTableBar columns={houseData.columns} data={houseData.rows} title={houseTitle} />
                     </div>
                     <div className={_cs(styles.bb)}>
-                        <JipsStackedBarChart 
-                            height={150} 
+                        <StackedBarChart
+                            height={150}
                             width={500}
-                            title={StackBarchartTitle} 
-                            data={maleStack}
+                            data={idpsInCampsMainActivity}
                         />
-
+                        <StackedBarChart
+                            height={150}
+                            width={500}
+                            data={idpsReturneesMainActivity}
+                        />
+                        <StackedBarChart
+                            height={150}
+                            width={500}
+                            data={nonDisplacedMainActivity}
+                        />
                     </div>
                     <div className={""}>
                         <JipsBarChart data={barChart} title={barchartTitle} height={150} width={400} />
