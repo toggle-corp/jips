@@ -1,5 +1,5 @@
 import React from 'react';
-import { JipsBarChart, JipsTable, JipsTableBar, JipsTitle } from '../../../Components';
+import { JipsBarChart, JipsStackedBarChart, JipsTable, JipsTableBar, JipsTitle } from '../../../Components';
 import JipsText from '../../../Components/JipsText';
 import { Dimension, Language, Section, SubSection } from '../../../types';
 import SideBar from '../SideBar';
@@ -14,7 +14,6 @@ import styles from './styles.module.scss';
 import { getActivityData, getGenderActivityData, getBarChartData, getTableBarData, getTableData, tableData } from '../../../utils/dataUtil';
 import { DataContext } from '../../../Context/DataContext';
 import { LanguageContext } from '../../../Context';
-import StackedBarChart from '../../../Components/StackedBarChart';
 
 export default function PartOne() {
 
@@ -91,23 +90,22 @@ export default function PartOne() {
             const barchartTitle = (filteredSubSecs.length > 2) ? filteredSubSecs[2].subHeading : "";
             return(
                 <>
-                    <div className={_cs(styles.bb)}>
-                        <JipsTableBar columns={houseData.columns} data={houseData.rows} title={houseTitle} />
-                    </div>
-                    <div className={_cs(styles.bb)}>
-                        <StackedBarChart
-                            height={150}
+                    <JipsTableBar columns={houseData.columns} data={houseData.rows} title={houseTitle} />
+                    <div>
+                        <JipsStackedBarChart
+                            height={100}
                             width={500}
                             data={idpsInCampsMainActivity}
                         />
-                        <StackedBarChart
-                            height={150}
+                        <JipsStackedBarChart
+                            height={100}
                             width={500}
                             data={idpsReturneesMainActivity}
                         />
-                        <StackedBarChart
-                            height={150}
+                        <JipsStackedBarChart
+                            height={175}
                             width={500}
+                            showLegends={true}
                             data={nonDisplacedMainActivity}
                         />
                     </div>

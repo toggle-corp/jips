@@ -1,5 +1,6 @@
-import React, { useEffect } from 'react';
-import { ComposedChart, Bar, XAxis, YAxis, Tooltip, Legend, LabelList, ResponsiveContainer } from 'recharts';
+import React from 'react';
+import { BarChart, Bar, XAxis, YAxis, Tooltip, Legend, LabelList, ResponsiveContainer } from 'recharts';
+import { IDPsInCamps } from '../../icons';
 import { colors } from '../../utils/colorUtil';
 
 import styles from './styles.module.scss';
@@ -10,21 +11,22 @@ type JipsStackedBarChartProps = {
   data:any[],
   height:number,
   width:number,
+  showLegends?:boolean|false
 }
 
 export default function JipsStackedBarChart (props:JipsStackedBarChartProps) {
-    const {height, width, icon, title, data} = props;
+  const {height, width, icon, title, data, showLegends} = props;
 
   const [graphData, setGraphData] = React.useState<any>([]);
 
   const renderGraph = () =>{
-    const keySet = Object.keys(data[0]);
+    const keySet = Object.keys(data[0]).filter((key:string)=>key!=="name" && key!== "variable" && key!=="key");
     const bars:any = [];
-    keySet.slice(2).forEach((payload:string, index:number)=>{
+    keySet.forEach((payload:string, index:number)=>{
       const bar = <Bar 
                     dataKey={payload}
                     stackId="a"
-                    fill={colors[index%3]}
+                    fill={colors[index]}
                     >
                     <LabelList dataKey={payload} position="middle" fill="#fff"/>
                   </Bar>;
@@ -32,6 +34,14 @@ export default function JipsStackedBarChart (props:JipsStackedBarChartProps) {
     });
     return bars;
   }
+
+  const renderCustomAxisTick = (props:any) => {
+    const {x,y } = props;
+    console.log("props: ", props);
+    return (
+        <IDPsInCamps x={x - 12} y={y + 4} />
+    );
+  };
 
   React.useEffect(()=>{
     setGraphData(data);
@@ -44,10 +54,10 @@ export default function JipsStackedBarChart (props:JipsStackedBarChartProps) {
             {icon} {title}
           </div>
         )}
-        <ResponsiveContainer height="100%" width="90%" minHeight="28vh">
-        <ComposedChart
+        <ResponsiveContainer height={height} width={width}>
+        <BarChart
           width={width-10}
-          height={height}
+          height={showLegends?height:height-50}
           data={graphData}
           layout="vertical"
           margin={{
@@ -56,14 +66,14 @@ export default function JipsStackedBarChart (props:JipsStackedBarChartProps) {
             left: 20,
             bottom: 10,
           }}
-          barCategoryGap={12}
+          barCategoryGap={2}
         >
-          <XAxis type="number" range={[0, 100]} />
-          <YAxis dataKey="name" type="category" scale="band" tickMargin={2}/>
+          <XAxis type="number" range={[0, 100]} hide={true} />
+          <YAxis dataKey="name" type="category"/>
           <Tooltip />
-          {/* <Legend /> */}
+          {showLegends && <Legend />}
           {renderGraph()}
-        </ComposedChart>
+        </BarChart>
       </ResponsiveContainer>
       </div>
   );

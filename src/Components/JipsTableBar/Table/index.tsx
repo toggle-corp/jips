@@ -4,7 +4,7 @@ import styles from './styles.module.scss';
 export interface Col{
     key:string,
     name:string,
-    icon?:React.Component,
+    icon?:any,
     render: (item:any)=>void,
     tags?: any[],
 }
@@ -32,7 +32,7 @@ export function Table(props:TableProps) {
                         const { name, icon } = column;
 
                         const child = (
-                            <>{icon} {name}</>
+                            <div style={{display:"flex", flexDirection:"column"}}>{icon} {name}</div>
                         );
                         return (
                             <th

@@ -4,6 +4,9 @@ import CellBar from '../Components/JipsTableBar/CellBar';
 import { SubSection, Values } from "../types";
 import { bgColors, colors } from './colorUtil';
 import { listToGroupList, mapToList } from '@togglecorp/fujs';
+import { IDPsInCamps, IDPsReturnees, NonDisplaced } from '../icons';
+import { ReactComponent } from '*.svg';
+import { Col } from '../Components/JipsTableBar/Table';
 
 
 export interface tableData {
@@ -56,15 +59,15 @@ export const getTableData = ( subsec: SubSection) => {
 export const getTableBarData = (subsec:SubSection) => {
 
     var rowCol:tableData;
-    const columns:any = [];
+    const columns:Col[] = [];
     const rows:any = [];
 
     const keySet:any = [];
 
-    var col = {
+    var col:Col = {
             key: "variable",
             name: "",
-            render: (item: any) => {return item["variable"];}
+            render: (item: any) => {return <>{item["variable"]} </>;}
     }
 
     columns.push(col)
@@ -74,9 +77,20 @@ export const getTableBarData = (subsec:SubSection) => {
         var key = variable.replace("-", "").replace(" ", "");
         key = key.toLowerCase().replace(" ", "");
         keySet.push(key);
+
+        var icon:any;
+
+        switch(index){
+            case 0: icon = <IDPsInCamps />; break;
+            case 1: icon = <IDPsReturnees/>; break;
+            case 2: icon = <NonDisplaced/>; break;
+            default: icon = ""; break;
+        }
+
         col = {
             key: key,
             name: variable,
+            icon: icon,
             render: (item: any) => {return <CellBar name={item["key"]} value={item[key]} color={colors[index%3]} bgcolor={bgColors[index%3]} />;}
         }
 
@@ -131,7 +145,7 @@ export const getActivityData = (data: SubSection) => {
         const activities = keys.map((k: string, index: number) => ({
             key: k,
             [activity]: Math.round(values[index]*100),
-            gender: gender.trim().toLowerCase(),
+            name: gender.trim().toLowerCase(),
         }));
         return activities;
     });
@@ -141,10 +155,10 @@ export const getActivityData = (data: SubSection) => {
 
 interface Activity {
     key: string;
-    gender: string;
+    name: string;
 }
 
 export const getGenderActivityData = (data: Activity[], key: string) => mapToList(
-    listToGroupList(data.filter(v => v.key === key), v => v.gender),
+    listToGroupList(data.filter(v => v.key === key), v => v.name),
     v => Object.assign({}, ...v),
 )
