@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { ComposedChart, Bar, XAxis, YAxis, LabelList } from 'recharts';
+import { ComposedChart, Bar, XAxis, YAxis } from 'recharts';
 
 
 export interface CellBarProps {
@@ -14,7 +14,7 @@ function CellBar(props: CellBarProps) {
     const { bgcolor, color, name, value } = props;
     const [dt, setDt] = React.useState<any>([])
 
-    useEffect(()=>{
+    useEffect(() => {
         var val = [{
             "name": name,
             "val": (value > 0) ? value : 100,
@@ -22,27 +22,25 @@ function CellBar(props: CellBarProps) {
         }];
 
         setDt(val);
-    },[name, value]);
+    }, [name, value]);
 
     const CustomLabel = (p:any) =>{
         return (
-        <text x={p.x}
-            y={p.y}
-            width={p.width}
-            height={p.height}
-            fill={p.stroke}
-            offset="10"
-            className="recharts-text recharts-label" 
-            text-anchor="right"
-        >
-            <tspan x={p.x + 17} dy="0.5em">{p.value + "%"}</tspan>
-        </text>
+            <text x={(p.value>80) ? (p.x + p.width/2) : (p.x + p.width)}
+                y={p.y}
+                fill={(p.value>80) ? "#fff" : p.fill}
+                dx={2}
+                dy={5+p.height/2}
+                fontSize={12}
+            >
+                {p.value + "%"}
+            </text>
         );
     }
 
     return (
         <div style={{ width: "100%", height: '50%', marginTop: "auto", marginBottom: "auto" }}>
-            {!isNaN(value) &&(
+            {!isNaN(value) && (
                 <ComposedChart
                     layout="vertical"
                     width={100}
@@ -51,21 +49,25 @@ function CellBar(props: CellBarProps) {
                 >
                     <XAxis type="number" hide={true} domain={[0, 100]} />
                     <YAxis dataKey="name" type="category" scale="band" hide={true} />
-                    <Bar barSize={20} dataKey="val" fill={(value > 0) ? color : bgcolor} background={{ fill: bgcolor }}>
-                        <LabelList dataKey="val" position="right" fill={color} fontSize={12} />
-                    </Bar>
+                    <Bar 
+                        barSize={20} 
+                        dataKey="val" 
+                        fill={(value > 0) ? color : bgcolor} background={{ fill: bgcolor }} 
+                        label={CustomLabel}
+                    />
                 </ComposedChart>
             )}
-            {isNaN(value)&& (
-                <div 
-                    style={{fontSize:12, 
-                            backgroundColor:bgcolor, 
-                            color:color, 
-                            width:"100%", 
-                            display:"block",
-                            marginLeft:2 
+            {isNaN(value) && (
+                <div
+                    style={{
+                        fontSize: 12,
+                        backgroundColor: bgcolor,
+                        color: color,
+                        width: "100%",
+                        display: "block",
+                        marginLeft: 2
                     }}>
-                        n/a
+                    n/a
                 </div>
             )}
         </div>

@@ -12,9 +12,6 @@ export function removeBlankRowAtBeginingAndEnd(data:any[]){
     return cleanData;
 }
 
-/**
- * Function to export section mapping for the 
- */
 export function parseExcelToSections(data:any[]){
     if(data.length < 7 || data[0].length < 2) return null;
 
@@ -25,17 +22,16 @@ export function parseExcelToSections(data:any[]){
         sections:[],
     }
 
-    var docSec:Section;
-    var sub:SubSection;
     var head:any;
     var subhead:any;
+    var docSec:Section = { "heading":head, "body":[]};
+    var sub:SubSection = {"subHeading":subhead, "vars":[]};
 
     const keys = data[3].slice(2);
-
     data.slice(4).forEach((datum) => {
         if( (datum.length === 1 || datum.length >=5 )&& (typeof datum[0] !== 'undefined') && (datum[0] !== null) && (datum[0] !== '')){
-            if(typeof head != 'undefined' && typeof docSec != 'undefined') {
-                docSec.body.push(sub);
+            if(typeof head !== 'undefined' && typeof docSec !== 'undefined') {
+                if(sub && sub.vars.length > 0) docSec.body.push(sub);
                 subhead = "";
                 sub = {"subHeading":subhead, "vars":[]}; 
                 userInterface.sections.push(docSec);
@@ -61,26 +57,29 @@ export function parseExcelToSections(data:any[]){
             var measure:any = datum[1];
             var values = datum.slice(2);
 
-            var kv:KeyValues = {
-                "keys":keys,
-                "values":values,
+            if(datum.filter((value:any)=>value!==undefined && value!==null).length > 0){
+                var kv:KeyValues = {
+                    "keys":keys,
+                    "values":values,
+                }
+                var v:Values = {
+                    "variable": measure,
+                    "data":kv,
+                }
+                if(!sub){
+                    subhead = "";
+                    sub = {
+                        "subHeading":"",
+                        "vars": []
+                    };
+                }
+                sub.vars.push(v);
             }
-
-            var v:Values = {
-                "variable": measure,
-                "data":kv,
-            }
-
-            if(!sub){
-                subhead = "";
-                sub = {
-                    "subHeading":"",
-                    "vars": []
-                };
-            }
-            sub.vars.push(v);
         }
     });
+
+    if(sub && sub.vars.length > 0) docSec.body.push(sub);
+    userInterface.sections.push(docSec);
 
     return userInterface;
 }

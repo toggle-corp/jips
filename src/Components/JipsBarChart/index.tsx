@@ -1,10 +1,10 @@
 import React from 'react';
 import { BarChart, Bar, XAxis, LabelList, Tooltip, Legend, YAxis } from 'recharts';
-import {_cs} from '@togglecorp/fujs';
-import {colors, bgColors} from '../../utils/colorUtil';
+import { _cs } from '@togglecorp/fujs';
+import { colors, bgColors } from '../../utils/colorUtil';
 
 import styles from './styles.module.scss';
-import { color } from 'html2canvas/dist/types/css/types/color';
+// import { IDPsInCamps, IDPsReturnees, NonDisplaced } from '../../icons';
 
 type JipsBarChartProps = {
   data: any[],
@@ -21,23 +21,36 @@ export default function JipsBarChart(props: JipsBarChartProps) {
   const [datas, setDatas] = React.useState<any[]>();
   const [keys, setKeys] = React.useState<string[]>();
 
-  React.useEffect(()=>{
+  React.useEffect(() => {
     const keyset = Object.keys(data[0]).slice(1);
     setKeys(keyset);
     setDatas(data);
 
   }, [data]);
 
-  // const CustomLabel = (p:any) =>{
-  //   return <text x={p.x} y={p.y} fill={p.stroke} fontSize={12} textAnchor="top">{p.value + "%"}</text>
-  // }
+  // const renderCustomAxisTick = (props:any) => {
+  //   const {x,y, index, payload } = props;
+  //   var icon:any;
+  //   switch(index){
+  //     case 0: icon = <IDPsInCamps x={x - 20} y={y - 10 } />; break;
+  //     case 1: icon = <IDPsReturnees x={x - 20} y = {y - 10} />; break;
+  //     case 2: icon = <NonDisplaced x={x - 20} y = {y - 10} />; break;
+  //     default: icon = <svg x={x - 12} y={y + 4} width={45} height={30} viewBox="0 0 1024 1024" fill="#000"><text textAnchor="middle">{payload.value}</text></svg>; break;
+  //   }
+
+  //   return icon;
+  // };
+
+  const CustomLabel = (p: any) => {
+    return <text x={p.x} y={p.y} dx={p.width / 5} dy={-2} fill={p.fill} fontSize={12} textAnchor="top">{p.value + "%"}</text>
+  }
 
   const getBar = () => {
     if(keys) {
-      const bars = keys.filter((key)=>(key!="key" && key!="name")).map((key, index)=>{
+      const bars = keys.filter((key)=>(key!=="key" && key!=="name")).map((key, index)=>{
         return (
-          <Bar barSize={25} dataKey={key} fill={colors[index]} background={{ fill: bgColors[index]}} fontSize={12} >
-            <LabelList dataKey={key} position="top" fill={colors[index]} /> 
+          <Bar barSize={30} dataKey={key} fill={colors[index]} background={{ fill: bgColors[index] }} fontSize={12} >
+            <LabelList dataKey={key} position="top" fill={colors[index]} content={CustomLabel} />
           </Bar>
         );
       });
@@ -53,7 +66,7 @@ export default function JipsBarChart(props: JipsBarChartProps) {
         </div>
       )}
       <BarChart
-        width={width}
+        width={width * 0.95}
         height={height}
         data={datas}
         margin={{
@@ -62,6 +75,7 @@ export default function JipsBarChart(props: JipsBarChartProps) {
           left: 20,
           bottom: 5,
         }}
+        barCategoryGap={2}
       >
         <XAxis dataKey="name" />
         <YAxis type="number" domain={[0, 100]} hide={true} />

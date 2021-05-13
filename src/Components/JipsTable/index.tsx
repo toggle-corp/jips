@@ -2,7 +2,6 @@ import React from 'react';
 import { Table, TableColumn } from '@togglecorp/toggle-ui';
 import Message from './tools/Message';
 import Container from './tools/Container/index';
-import returnee from '../../icons/returnee.svg';
 import styles from './styles.module.scss';
 
 interface JipsTableProps {

@@ -5,7 +5,6 @@ import { SubSection, Values } from "../types";
 import { bgColors, colors } from './colorUtil';
 import { listToGroupList, mapToList } from '@togglecorp/fujs';
 import { IDPsInCamps, IDPsReturnees, NonDisplaced } from '../icons';
-import { ReactComponent } from '*.svg';
 import { Col } from '../Components/JipsTableBar/Table';
 
 
@@ -27,7 +26,7 @@ export const getTableData = ( subsec: SubSection) => {
     colKeys.push('variables');
 
     subsec.vars.forEach((measure:Values)=>{
-        var key = (measure.variable.split("-").length > 0)?measure.variable.split("-")[1] : measure.variable;
+        var key = (measure.variable.split("-").length > 1) ? measure.variable.split("-")[1] : measure.variable;
         var title = key.trim();
         key = key.toLowerCase().replace(" ", "");
         colKeys.push(key);
@@ -128,7 +127,7 @@ export const getBarChartData = (props:GetBarChartProps) => {
     const data = keyMaps.map((key, index) => {
         var k = key
         variables.forEach((variable:Values)=>{
-            var v = variable.variable.trim();
+            var v = variable.variable.trim().split('-')[0];
             k = {...k, [v]:Math.round(variable.data.values[index]*100)};
         })
         return k;
@@ -159,6 +158,6 @@ interface Activity {
 }
 
 export const getGenderActivityData = (data: Activity[], key: string) => mapToList(
-    listToGroupList(data.filter(v => v.key === key), v => v.name),
+    listToGroupList(data.filter(v => v.key.trim() === key.trim()), v => v.name),
     v => Object.assign({}, ...v),
 )

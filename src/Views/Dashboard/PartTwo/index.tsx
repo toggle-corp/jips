@@ -1,13 +1,12 @@
 import React from 'react';
 import { JipsBarChart, JipsStackedBarChart, JipsTable, JipsTableBar, JipsTitle } from '../../../Components';
-import JipsText from '../../../Components/JipsText';
 import { Dimension, Language, Section, SubSection } from '../../../types';
 import SideBar from '../SideBar';
 import { _cs } from '@togglecorp/fujs';
 import { Doc } from '../../../types';
 
 import { FaPeopleCarry } from "react-icons/fa";
-import { AiFillSafetyCertificate, AiOutlineSetting } from "react-icons/ai";
+import { AiFillSafetyCertificate, AiOutlineArrowRight, AiOutlineSetting } from "react-icons/ai";
 
 import styles from './styles.module.scss';
 import { getBarChartData, getTableBarData, getTableData, tableData } from '../../../utils/dataUtil';
@@ -42,18 +41,13 @@ export default function PartOne() {
             const serviceData = (filteredSubSecs.length > 0) ? getTableBarData(filteredSubSecs[0]):{columns:[], rows:[]};
             const servceTitle = (filteredSubSecs.length > 0) ? filteredSubSecs[0].subHeading:"";
 
-            const barChart = (filteredSubSecs.length > 2) ? getBarChartData({subsec:filteredSubSecs[2]}) : [];
-            const barchartTitle = (filteredSubSecs.length > 2) ? filteredSubSecs[2].subHeading : "";
+            const barChart = (filteredSubSecs.length > 1) ? getBarChartData({subsec:filteredSubSecs[1]}) : [];
+            const barchartTitle = (filteredSubSecs.length > 1) ? filteredSubSecs[1].subHeading : "";
             return(
                 <>
-                    <div className={_cs(styles.bb)}>
                         <JipsTableBar columns={serviceData.columns} data={serviceData.rows} title={servceTitle} />
-                    </div>
-                    <div className={_cs(styles.bb)}>
-                        
-                    </div>
                     <div className={""}>
-                        <JipsBarChart data={barChart} title={barchartTitle} height={300} width={400} />
+                        <JipsBarChart data={barChart} title={barchartTitle} height={250} width={580} />
                     </div>
                 </>
             );
@@ -78,6 +72,7 @@ export default function PartOne() {
             var rowCols;
             var cahrtData=[];
             const filteredSubSecs = sections[6].body.filter((subsec:SubSection)=>subsec.vars.length>0);
+
             rowCols = (filteredSubSecs.length > 0) ? getTableBarData(filteredSubSecs[1]) : {columns: [], rows:[]};
             cahrtData = (filteredSubSecs.length > 1)? getBarChartData({subsec:filteredSubSecs[0]}) : [];
 
@@ -85,7 +80,7 @@ export default function PartOne() {
                 <div className={_cs(styles.row)}>
                     <div className={_cs(styles.w40, styles.p5, styles.br)}>
                         {filteredSubSecs.length > 0 &&(
-                            <JipsBarChart data={cahrtData} height={220} width={300} title={filteredSubSecs[0].subHeading} />
+                            <JipsBarChart data={cahrtData} height={250} width={600} title={filteredSubSecs[0].subHeading} />
                         )}
                     </div>
                     <div className={_cs(styles.w60, styles.p5)}>
@@ -107,7 +102,7 @@ export default function PartOne() {
 
             return (
                 <>
-                    { filteredSubSecs.length > 1 && (
+                    { filteredSubSecs.length > 0 && (
                         <JipsTableBar columns={rowCols.columns} data={rowCols.rows} title={filteredSubSecs[0].subHeading} />
                     )}
                 </>
@@ -146,7 +141,7 @@ export default function PartOne() {
                     <div className={_cs(styles.col, styles.w50, styles.p5)}>
                         {sections.length>7 &&(
                             <>
-                                <JipsTitle title={sections[7].heading} icon={<FaPeopleCarry/>}/>
+                                <JipsTitle title={sections[7].heading} icon={<AiOutlineArrowRight/>}/>
                                 <div className={_cs(styles.row, styles.mt10)}>
                                     {
                                         displaySectionEight()

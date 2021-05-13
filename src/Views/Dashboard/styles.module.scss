@@ -2,19 +2,22 @@
     padding: 0;
     margin: 0;
     width: 100%;
+    position: relative;
     >.main{
         width: 100%;
         z-index: 0;
+        position: absolute;
     }
 
     >.buttons {
         display: flex;
         flex-direction: row;
+        position: fixed;
+        transform: rotate(-90deg);
         z-index: 100;
         padding: 0;
-        margin-right: 0px;
-        margin-bottom: 20px;
-        margin-left: 80%;
+        margin-top: 12%;
+        margin-left: -7%;
     }
 
     .container{
@@ -26,3 +29,13 @@
     }
 
 }
+
+.page {
+    flex-direction: 'row';
+    background-color: '#E4E4E4';
+    }
+.section {
+    margin: 10;
+    padding: 10;
+    flex-grow: 1;
+    }
