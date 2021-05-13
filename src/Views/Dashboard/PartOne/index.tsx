@@ -5,7 +5,6 @@ import { Dimension, Section, SubSection } from '../../../types';
 import SideBar from '../SideBar';
 import { _cs } from '@togglecorp/fujs';
 import { Doc } from '../../../types';
-
 import { FaSearchengin } from "react-icons/fa";
 import { GiTakeMyMoney, GiGrain } from "react-icons/gi";
 import { AiFillFile, AiFillSafetyCertificate } from "react-icons/ai";
@@ -36,8 +35,8 @@ export default function PartOne() {
         setSections(filteredSections);
     }, [data]);
 
-    const displaySectionTwo = ()=>{
-        if(sections.length > 1){
+    const displaySectionTwo = () => {
+        if (sections.length > 1) {
             var rowCols;
             var cahrtData = [];
             const filteredSubSecs = sections[1].body.filter((subsec: SubSection) => subsec.vars.length > 0);
@@ -53,7 +52,7 @@ export default function PartOne() {
                     </div>
                     <div className={_cs(styles.w40, styles.bl)}>
                         {filteredSubSecs.length > 1 && (
-                            <JipsBarChart data={cahrtData} height={220} width={dimension.width / 3 * 0.85} title={filteredSubSecs[1].subHeading} />
+                            <JipsBarChart data={cahrtData} height={220} width={dimension.width / 3 * 0.88} title={filteredSubSecs[1].subHeading} />
                         )}
                     </div>
                 </div>
@@ -166,7 +165,7 @@ export default function PartOne() {
 
                     </table>
                     <div className={""}>
-                        <JipsBarChart data={barChart} title={barchartTitle} height={150} width={500} />
+                        <JipsBarChart data={barChart} title={barchartTitle} height={150} width={553} />
                     </div>
                 </>
             );

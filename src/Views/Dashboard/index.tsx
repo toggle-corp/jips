@@ -7,7 +7,6 @@ import PartTwo from './PartTwo';
 import JipsFooter from '../../Components/JipsFooter';
 import { DataContext } from '../../Context/DataContext';
 import { Doc } from '../../types';
-// import ReactPDF from '@react-pdf/renderer';
 import styles from './styles.module.scss';
 
 function Dashboard() {
@@ -62,7 +61,7 @@ function Dashboard() {
                 </div>
                 <div className={styles.buttons}>
                     <Button className={"primary"} name="save" onClick={handleClick}>Save as jpg</Button>
-                    {/* <Button className={"primary"} name="save" onClick={myDocument}>Save as pdf</Button> */}
+                    <Button className={"primary"} name="save" >Save as pdf</Button>
                     <Button className={"primary"} name="next" onClick={handlepage}>{(pageNum > 0) ? "Prev Page" : "Next Page"}</Button>
                 </div>
             </div>

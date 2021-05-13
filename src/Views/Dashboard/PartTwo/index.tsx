@@ -47,7 +47,7 @@ export default function PartOne() {
                 <>
                         <JipsTableBar columns={serviceData.columns} data={serviceData.rows} title={servceTitle} />
                     <div className={""}>
-                        <JipsBarChart data={barChart} title={barchartTitle} height={250} width={580} />
+                        <JipsBarChart data={barChart} height={250} width={580} />
                     </div>
                 </>
             );
