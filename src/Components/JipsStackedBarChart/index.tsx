@@ -1,4 +1,5 @@
 import React from 'react';
+import { unique } from '@togglecorp/fujs';
 import { BarChart, Bar, XAxis, YAxis, Legend, LabelList, ResponsiveContainer } from 'recharts';
 import { LanguageContext } from '../../Context';
 import { Language } from '../../types';
@@ -19,11 +20,13 @@ export default function JipsStackedBarChart(props: JipsStackedBarChartProps) {
   const { height, width, icon, title, data, showLegends } = props;
 
   const [graphData, setGraphData] = React.useState<any>([]);
-  const [legend, setLEgend] = React.useState<boolean>(false);
+  const [legend, setLegend] = React.useState<boolean>(false);
   const language = React.useContext(LanguageContext);
 
   const renderGraph = () => {
-    const keySet = Object.keys(data[0]).filter((key: string) => key !== "name" && key !== "variable" && key !== "key");
+    const keySet1 = Object.keys(data[0]).filter((key: string) => key !== "name" && key !== "variable" && key !== "key");
+    const keySet2 = Object.keys(data[1]).filter((key: string) => key !== "name" && key !== "variable" && key !== "key");
+    const keySet = unique([...keySet1, ...keySet2]);
     const bars: any = [];
 
     keySet.forEach((payload: string, index: number) => {
@@ -36,13 +39,12 @@ export default function JipsStackedBarChart(props: JipsStackedBarChartProps) {
       </Bar>
       bars.push(bar);
     });
-    console.log(bars,keySet);
     return bars;
   }
 
   React.useEffect(()=>{
     setGraphData(data);
-    (showLegends) ? setLEgend(true) : setLEgend(false);
+    (showLegends) ? setLegend(true) : setLegend(false);
   }, [data, showLegends]);
 
   return (

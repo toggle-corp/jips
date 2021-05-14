@@ -6,10 +6,8 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    margin-top: 12%;
-    margin-bottom:auto;
-    margin-left: auto;
-    margin-right: auto;
+    margin: auto;
+
     > .fileUploadWrapper{
         background-color: grey;
         border: "1px solid #000";
