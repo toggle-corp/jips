@@ -12,6 +12,7 @@ import Link, { LinkProps } from './Link';
 import ExternalLink, { ExternalLinkProps } from './ExternalLink';
 import Status, { StatusProps } from './Status';
 import Text, { TextProps } from './Text';
+import { ReactElement, ReactNode } from 'react';
 
 export function createLinkColumn<D, K>(
     id: string,
@@ -113,6 +114,7 @@ export function createTextColumn<D, K>(
     id: string,
     title: string,
     accessor: (item: D) => string | undefined | null,
+    iconAccessor?: (item: D) => ReactNode,
     options?: {
         cellAsHeader?: boolean,
         sortable?: boolean,
@@ -139,6 +141,7 @@ export function createTextColumn<D, K>(
         cellRenderer: Text,
         cellRendererParams: (_: K, datum: D): TextProps => ({
             value: accessor(datum),
+            icon: iconAccessor && iconAccessor(datum),
         }),
         valueSelector: accessor,
         valueComparator: (foo: D, bar: D) => compareString(accessor(foo), accessor(bar)),
