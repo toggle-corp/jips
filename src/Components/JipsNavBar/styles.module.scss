@@ -22,7 +22,7 @@ nav {
         >.wrapper {
             margin-left: auto;
             display: flex;
-            max-width: 960px;
+            //max-width: 960px;
             flex-direction: column;
             padding: 0;
             margin-top: auto;
@@ -31,7 +31,7 @@ nav {
             justify-content: space-around;
             > .title {
                 font-family: 'Overpass', sans-serif;
-                font-size: x-large;
+                font-size: medium;
                 font-weight: 700;
                 letter-spacing: 1px;
                 text-transform: uppercase;
@@ -39,17 +39,17 @@ nav {
                 word-wrap: break-word;
                 line-height: 1;
                 color: #505BA1;
-                height:72px;
+                //height:72px;
                 opacity:1;
                 padding: 0;
                 display: block;
+                margin-top: auto;
             }
             > .subtitle {
                 font-family: 'Overpass', sans-serif;
-                font-size: medium;
-                font-weight: 600;
+                font-size: x-small;
+                font-weight: bold;
                 letter-spacing: 1px;
-                text-transform: lowercase;
                 text-align: right;
                 color: #2B2B2B;
                 display: block;

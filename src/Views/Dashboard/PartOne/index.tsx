@@ -38,10 +38,10 @@ export default function PartOne() {
     const displaySectionTwo = () => {
         if (sections.length > 1) {
             var rowCols;
-            var cahrtData = [];
+            var chartData = [];
             const filteredSubSecs = sections[1].body.filter((subsec: SubSection) => subsec.vars.length > 0);
             rowCols = (filteredSubSecs.length > 0) ? getTableBarData(filteredSubSecs[0]) : { columns: [], rows: [] };
-            cahrtData = (filteredSubSecs.length > 1) ? getBarChartData({ subsec: filteredSubSecs[1] }) : [];
+            chartData = (filteredSubSecs.length > 1) ? getBarChartData({ subsec: filteredSubSecs[1] }) : [];
 
             return (
                 <div className={_cs(styles.row)}>
@@ -52,7 +52,7 @@ export default function PartOne() {
                     </div>
                     <div className={_cs(styles.w40, styles.bl)}>
                         {filteredSubSecs.length > 1 && (
-                            <JipsBarChart data={cahrtData} height={220} width={dimension.width / 3 * 0.88} title={filteredSubSecs[1].subHeading} />
+                            <JipsBarChart data={chartData} height={220} width={dimension.width / 3 * 0.88} title={filteredSubSecs[1].subHeading} />
                         )}
                     </div>
                 </div>
@@ -172,6 +172,8 @@ export default function PartOne() {
         }
         return "No data available!"
     }
+
+    console.log('checking ScopeData in PartOne index::>>', scopeData);
 
     return (
         <div className={_cs(styles.row, styles.mt5)}>

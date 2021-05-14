@@ -4,7 +4,7 @@
     flex-direction: row;
     width: 100%;
     font-family: 'Overpass', sans-serif;
-    font-size: 26px;
+    font-size: revert;
     font-weight: bold;
     color: #505BA1;
     :nth-child(even){
