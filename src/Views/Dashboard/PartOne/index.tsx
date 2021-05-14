@@ -11,7 +11,7 @@ import { AiFillFile, AiFillSafetyCertificate } from "react-icons/ai";
 import styles from './styles.module.scss';
 import { getActivityData, getGenderActivityData, getBarChartData, getTableBarData, getTableData, tableData } from '../../../utils/dataUtil';
 import { DataContext } from '../../../Context/DataContext';
-import { IDPsInCamps, IDPsReturnees, NonDisplaced } from '../../../icons';
+import { IDPsInCamps, IDPsReturnees, NonDisplaced, Nomade } from '../../../icons';
 import { LanguageContext } from '../../../Context';
 
 export default function PartOne() {
@@ -129,12 +129,13 @@ export default function PartOne() {
                                                     {index === 0 && <IDPsInCamps />}
                                                     {index === 1 && <IDPsReturnees />}
                                                     {index === 2 && <NonDisplaced />}
+                                                    {index === 3 && <Nomade />}
                                                     <p style={{ fontSize: "12px" }}>{keys[index]}</p>
                                                 </div>
                                             </td>
                                             <td>
                                                 <JipsStackedBarChart
-                                                    height={100}
+                                                    height={(index === activitiesCategorical.length -1)?150:100}
                                                     width={dimension.width / 3 * 0.85}
                                                     data={activity}
                                                     showLegends = {index === activitiesCategorical.length -1}
@@ -146,7 +147,7 @@ export default function PartOne() {
                                         <>
                                             <td>
                                                 <JipsStackedBarChart
-                                                    height={100}
+                                                    height={(index === activitiesCategorical.length -1)?150:100}
                                                     width={dimension.width / 3 * 0.85}
                                                     data={activity}
                                                     showLegends = {index === activitiesCategorical.length -1}
@@ -157,6 +158,7 @@ export default function PartOne() {
                                                     {index === 0 && <IDPsInCamps />}
                                                     {index === 1 && <IDPsReturnees />}
                                                     {index === 2 && <NonDisplaced />}
+                                                    {index === 3 && <Nomade />}
                                                     <p style={{ fontSize: "12px" }}>{keys[index]}</p>
                                                 </div>
                                             </td>

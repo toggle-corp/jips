@@ -36,6 +36,7 @@ export default function JipsStackedBarChart(props: JipsStackedBarChartProps) {
       </Bar>
       bars.push(bar);
     });
+    console.log(bars,keySet);
     return bars;
   }
 
@@ -66,13 +67,13 @@ export default function JipsStackedBarChart(props: JipsStackedBarChartProps) {
               top: 20,
               right: 30,
               left: 20,
-              bottom: 10,
+              bottom: 15,
             }}
             barCategoryGap={1}
             barSize={25}
           >
             <XAxis type="number" range={[0, 100]} hide={true} />
-            <YAxis dataKey="name" type="category" orientation={(language===Language.ar)?"right":"left"}/>
+            <YAxis dataKey="name" height={50} type="category" orientation={(language===Language.ar)?"right":"left"}/>
             {legend && <Legend />}
             {renderGraph()}
           </BarChart>

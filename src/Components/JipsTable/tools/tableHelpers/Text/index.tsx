@@ -23,10 +23,14 @@ function Text(props: TextProps) {
             className={_cs(styles.iconText, className)}
             title={tooltip ?? value ?? ''}
         >
+            <div>
             {icon && (
                 <span className={styles.icon}>{icon}</span>
             )}
+            </div>
+            <div>
             <span className={styles.text}>{value}</span>
+            </div>
         </div>
     );
 }

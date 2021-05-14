@@ -6,7 +6,7 @@ import { _cs } from '@togglecorp/fujs';
 import { Doc } from '../../../types';
 
 import { FaPeopleCarry } from "react-icons/fa";
-import { AiFillSafetyCertificate, AiOutlineArrowRight, AiOutlineSetting } from "react-icons/ai";
+import { AiFillSafetyCertificate, AiOutlineArrowLeft, AiOutlineArrowRight, AiOutlineSetting } from "react-icons/ai";
 
 import styles from './styles.module.scss';
 import { getBarChartData, getTableBarData, getTableData, tableData } from '../../../utils/dataUtil';
@@ -196,7 +196,7 @@ export default function PartOne() {
                             <div className={_cs(styles.col, styles.w50, styles.p5)}>
                                 {sections.length>7 &&(
                                     <>
-                                        <JipsTitle title={sections[7].heading} icon={<FaPeopleCarry/>}/>
+                                        <JipsTitle title={sections[7].heading} icon={<AiOutlineArrowLeft/>}/>
                                         <div className={_cs(styles.row, styles.mt10)}>
                                             {
                                                 displaySectionEight()
@@ -208,7 +208,7 @@ export default function PartOne() {
                             <div className={_cs(styles.col, styles.w50, styles.p5, styles.bl)}>
                                 {sections.length>5 &&(
                                     <>
-                                        <JipsTitle title={sections[5].heading} icon={<AiOutlineSetting />}/>
+                                        <JipsTitle title={sections[5].heading} icon={<FaPeopleCarry />}/>
                                         <div className={_cs(styles.row, styles.mt10)}>
                                             {
                                                 displaySectionSix()

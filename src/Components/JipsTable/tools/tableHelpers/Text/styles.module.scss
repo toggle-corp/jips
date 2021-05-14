@@ -4,16 +4,14 @@
 
     .icon {
         flex-shrink: 0;
-        padding-right: var(--tui-spacing-small);
     }
-
-    .text {
-        flex-shrink: 0;
-        flex-grow: 1;
-        overflow: hidden;
-        text-overflow: ellipsis;
-        white-space: nowrap;
-        color:#852D57 ;
-        font-weight: 600;
-    }
+}
+.text {
+    flex-shrink: 0;
+    flex-grow: 1;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    color:#852D57 ;
+    font-weight: 900;
 }

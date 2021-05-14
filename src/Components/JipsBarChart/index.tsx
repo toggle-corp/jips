@@ -4,7 +4,7 @@ import { _cs } from '@togglecorp/fujs';
 import { colors, bgColors } from '../../utils/colorUtil';
 
 import styles from './styles.module.scss';
-import { IDPsInCamps, IDPsReturnees, NonDisplaced } from '../../icons';
+import { IDPsInCamps, IDPsReturnees, Nomade, NonDisplaced } from '../../icons';
 import { LanguageContext } from '../../Context';
 import { Language } from '../../types';
 
@@ -34,17 +34,17 @@ export default function JipsBarChart(props: JipsBarChartProps) {
 
   const renderCustomAxisTick = (props: any) => {
     const { x, y, payload } = props;
-    var showTitle = payload.value < 3;
+    var showTitle = payload.value < 4;
     var icon: any;
     switch (payload.value) {
-      case 0: icon = <IDPsInCamps x={x - 30} y={y - 5} />; break;
-      case 1: icon = <IDPsReturnees x={x - 30} y={y - 5} />; break;
-      case 2: icon = <NonDisplaced x={x - 30} y={y - 5} />; break;
+      case 0: icon = <IDPsInCamps x={x - 30} y={y+7} />; break;
+      case 1: icon = <IDPsReturnees x={x - 30} y={y+7} />; break;
+      case 2: icon = <NonDisplaced x={x - 30} y={y +7} />; break;
+      case 3: icon = <Nomade x={x - 30} y={y +7} />; break;
       default: icon = <text fontSize={10} x={x - 30} y={y + 3} fill="#000">
         {(datas && datas.length > payload.value) ? datas[payload.value].name : payload.value}
       </text>; break;
     }
-    console.log(payload, data);
     return <svg>
       <g>
         {icon}
@@ -99,10 +99,10 @@ export default function JipsBarChart(props: JipsBarChartProps) {
         }}
         barCategoryGap={2}
       >
-        <XAxis dataKey="key" type="category" tick={renderCustomAxisTick} reversed={language === Language.ar} />
+        <XAxis dataKey="key" height={60} type="category" tick={renderCustomAxisTick} reversed={language === Language.ar} />
         <YAxis type="number" domain={[0, 100]} hide={true} />
         <Tooltip />
-        <Legend fontSize={10} />
+        <Legend fontSize={10} className={styles.legend} />
         {getBar()}
       </BarChart>
     </div>

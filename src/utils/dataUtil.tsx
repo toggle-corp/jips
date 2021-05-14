@@ -4,7 +4,7 @@ import CellBar from '../Components/JipsTableBar/CellBar';
 import { SubSection, Values } from "../types";
 import { bgColors, colors } from './colorUtil';
 import { listToGroupList, mapToList } from '@togglecorp/fujs';
-import { IDPsInCamps, IDPsReturnees, NonDisplaced } from '../icons';
+import { IDPsInCamps, IDPsReturnees, Nomade, NonDisplaced } from '../icons';
 import { Col } from '../Components/JipsTableBar/Table';
 
 
@@ -14,9 +14,10 @@ export interface tableData {
 }
 
 const getIcon = (value: any) => {
-    if (value['variable'] === 'IDPs in camps') return <IDPsInCamps />
-    else if (value['variable'] === 'IDP returnees') return <IDPsReturnees />
-    else if (value['variable'] === 'Non-displaced') return <NonDisplaced />
+    if (value['key'] === 0 ) return <IDPsInCamps />
+    else if (value['key'] === 1 ) return <IDPsReturnees />
+    else if (value['key'] === 2 ) return <NonDisplaced />
+    else if (value ['key'] === 3 ) return <Nomade />
     return null;
 }
 
@@ -95,6 +96,7 @@ export const getTableBarData = (subsec:SubSection) => {
             case 0: icon = <IDPsInCamps />; break;
             case 1: icon = <IDPsReturnees/>; break;
             case 2: icon = <NonDisplaced/>; break;
+            case 3: icon = <Nomade/>; break;
             default: icon = ""; break;
         }
 
@@ -158,6 +160,7 @@ export const getActivityData = (data: SubSection) => {
             [activity]: Math.round(values[index]*100),
             name: gender.trim().toLowerCase(),
         }));
+        console.log(activities);
         return activities;
     });
 
