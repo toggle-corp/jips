@@ -13,6 +13,13 @@ export interface tableData {
     rows:any[],
 }
 
+const getIcon = (value: any) => {
+    if (value['variable'] === 'IDPs in camps') return <IDPsInCamps />
+    else if (value['variable'] === 'IDP returnees') return <IDPsReturnees />
+    else if (value['variable'] === 'Non-displaced') return <NonDisplaced />
+    return null;
+}
+
 export const getTableData = ( subsec: SubSection) => {
     var rowCols:tableData;
 
@@ -20,7 +27,12 @@ export const getTableData = ( subsec: SubSection) => {
     const colKeys:string[] = [];
     const vars:string[] = subsec.vars[0].data.keys;
     const rows:any[] = [];
-    var col = createTextColumn<any, string>('variables','',(item: any) => item["variable"],);
+    var col = createTextColumn<any, string>(
+        'variables',
+        '',
+        (item: any) => item["variable"],
+        getIcon,
+    );
 
     columns.push(col)
     colKeys.push('variables');
