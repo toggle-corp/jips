@@ -1,5 +1,5 @@
 import React from 'react';
-import { JipsBarChart, JipsStackedBarChart, JipsTable, JipsTableBar, JipsTitle } from '../../../Components';
+import { JipsBarChart, JipsTableBar, JipsTitle } from '../../../Components';
 import { Dimension, Language, Section, SubSection } from '../../../types';
 import SideBar from '../SideBar';
 import { _cs } from '@togglecorp/fujs';
@@ -19,8 +19,7 @@ export default function PartOne() {
 
     const [scopeData, setScopeData] = React.useState<tableData>({columns:[], rows:[]});
     const [sections, setSections] = React.useState<Section[]>([]);
-
-    const language:Language = React.useContext(LanguageContext);
+    const language = React.useContext(LanguageContext);
     const data:Doc = React.useContext(DataContext);
 
     React.useEffect(() => {
@@ -47,7 +46,7 @@ export default function PartOne() {
                 <>
                         <JipsTableBar columns={serviceData.columns} data={serviceData.rows} title={servceTitle} />
                     <div className={""}>
-                        <JipsBarChart data={barChart} height={250} width={580} />
+                        <JipsBarChart data={barChart} height={250} width={500} title={filteredSubSecs[1].subHeading} />
                     </div>
                 </>
             );
@@ -78,16 +77,34 @@ export default function PartOne() {
 
             return (
                 <div className={_cs(styles.row)}>
-                    <div className={_cs(styles.w40, styles.p5, styles.br)}>
-                        {filteredSubSecs.length > 0 &&(
-                            <JipsBarChart data={cahrtData} height={250} width={600} title={filteredSubSecs[0].subHeading} />
-                        )}
-                    </div>
-                    <div className={_cs(styles.w60, styles.p5)}>
-                        { filteredSubSecs.length > 1 && (
-                            <JipsTableBar columns={rowCols.columns} data={rowCols.rows} title={filteredSubSecs[1].subHeading} />
-                        )}
-                    </div>
+                    {language === Language.en && (
+                        <>
+                            <div className={_cs(styles.w40, styles.p5, styles.br)}>
+                                {filteredSubSecs.length > 0 &&(
+                                    <JipsBarChart data={cahrtData} height={245} width={dimension.width/3*0.85} title={filteredSubSecs[0].subHeading} />
+                                )}
+                            </div>
+                            <div className={_cs(styles.w60, styles.p5)}>
+                                { filteredSubSecs.length > 1 && (
+                                    <JipsTableBar columns={rowCols.columns} data={rowCols.rows} title={filteredSubSecs[1].subHeading} />
+                                )}
+                            </div>
+                        </>
+                    )}
+                    {language === Language.ar && (
+                        <>
+                            <div className={_cs(styles.w60, styles.p5)}>
+                                { filteredSubSecs.length > 1 && (
+                                    <JipsTableBar columns={rowCols.columns} data={rowCols.rows} title={filteredSubSecs[1].subHeading} />
+                                )}
+                            </div>
+                            <div className={_cs(styles.w40, styles.p5, styles.bl)}>
+                                {filteredSubSecs.length > 0 &&(
+                                    <JipsBarChart data={cahrtData} height={220} width={dimension.width/3*0.85} title={filteredSubSecs[0].subHeading} />
+                                )}
+                            </div>
+                        </>
+                    )}
                 </div>
             );
         }
@@ -113,61 +130,123 @@ export default function PartOne() {
 
     return (
         <div className={_cs(styles.row, styles.mt5)}>
-            <SideBar className={_cs(styles.br, styles.p5)}>
-                {sections.length > 4 && (
-                    <>
-                        <JipsTitle title={sections[4].heading} icon={<AiOutlineSetting />} />
-                        <div className={ _cs(styles.pt5)}>
-                            {displaySectionFive()}
+            {language === Language.en && (
+                <>
+                    <SideBar className={_cs(styles.br, styles.p5)}>
+                        {sections.length > 4 && (
+                            <>
+                                <JipsTitle title={sections[4].heading} icon={<AiOutlineSetting />} />
+                                <div className={ _cs(styles.pt5)}>
+                                    {displaySectionFive()}
+                                </div>
+                            </>
+                        )}
+                    </SideBar>
+
+                    <div className={styles.w67}>
+                        <div className={_cs(styles.row, styles.bb)}>
+                            <div className={_cs(styles.col, styles.w50, styles.p5, styles.br)}>
+                                {sections.length>5 &&(
+                                    <>
+                                        <JipsTitle title={sections[5].heading} icon={<FaPeopleCarry/>}/>
+                                        <div className={_cs(styles.row, styles.mt10)}>
+                                            {
+                                                displaySectionSix()
+                                            }
+                                        </div>
+                                    </>
+                                )}
+                            </div>
+                            <div className={_cs(styles.col, styles.w50, styles.p5)}>
+                                {sections.length>7 &&(
+                                    <>
+                                        <JipsTitle title={sections[7].heading} icon={<AiOutlineArrowRight/>}/>
+                                        <div className={_cs(styles.row, styles.mt10)}>
+                                            {
+                                                displaySectionEight()
+                                            }
+                                        </div>
+                                    </>
+                                )}
+                            </div>
                         </div>
-                    </>
-                )}
-            </SideBar>
 
-            <div className={styles.w67}>
-                <div className={_cs(styles.row, styles.bb)}>
-                    <div className={_cs(styles.col, styles.w50, styles.p5, styles.br)}>
-                        {sections.length>5 &&(
+                        <div className={_cs(styles.row, styles.pt10)}>
+                            <div className={_cs(styles.col, styles.p5)}>
+                                {sections.length>6 &&(
+                                    <>
+                                        <JipsTitle title={sections[6].heading} icon={<AiFillSafetyCertificate/>}/>
+                                        <div className={_cs(styles.row, styles.mt10)}>
+                                            {
+                                                displaySectionSeven()
+                                            }
+                                        </div>
+                                    </>
+                                )}
+                            </div>
+                        </div>
+                    </div>
+                </>
+            )}
+
+            {language === Language.ar && (
+                <>
+                    <div className={styles.w67}>
+                        <div className={_cs(styles.row, styles.bb)}>
+                            <div className={_cs(styles.col, styles.w50, styles.p5)}>
+                                {sections.length>7 &&(
+                                    <>
+                                        <JipsTitle title={sections[7].heading} icon={<FaPeopleCarry/>}/>
+                                        <div className={_cs(styles.row, styles.mt10)}>
+                                            {
+                                                displaySectionEight()
+                                            }
+                                        </div>
+                                    </>
+                                )}
+                            </div>
+                            <div className={_cs(styles.col, styles.w50, styles.p5, styles.bl)}>
+                                {sections.length>5 &&(
+                                    <>
+                                        <JipsTitle title={sections[5].heading} icon={<AiOutlineSetting />}/>
+                                        <div className={_cs(styles.row, styles.mt10)}>
+                                            {
+                                                displaySectionSix()
+                                            }
+                                        </div>
+                                    </>
+                                )}
+                            </div>
+                        </div>
+
+                        <div className={_cs(styles.row, styles.pt10)}>
+                            <div className={_cs(styles.col, styles.p5)}>
+                                {sections.length>6 &&(
+                                    <>
+                                        <JipsTitle title={sections[6].heading} icon={<AiFillSafetyCertificate/>}/>
+                                        <div className={_cs(styles.row, styles.mt10)}>
+                                            {
+                                                displaySectionSeven()
+                                            }
+                                        </div>
+                                    </>
+                                )}
+                            </div>
+                        </div>
+                    </div>
+
+                    <SideBar className={_cs(styles.p5, styles.bl)}>
+                        {sections.length > 4 && (
                             <>
-                                <JipsTitle title={sections[5].heading} icon={<FaPeopleCarry/>}/>
-                                <div className={_cs(styles.row, styles.mt10)}>
-                                    {
-                                        displaySectionSix()
-                                    }
+                                <JipsTitle title={sections[4].heading} icon={<AiOutlineSetting />} />
+                                <div className={ _cs(styles.pt5)}>
+                                    {displaySectionFive()}
                                 </div>
                             </>
                         )}
-                    </div>
-                    <div className={_cs(styles.col, styles.w50, styles.p5)}>
-                        {sections.length>7 &&(
-                            <>
-                                <JipsTitle title={sections[7].heading} icon={<AiOutlineArrowRight/>}/>
-                                <div className={_cs(styles.row, styles.mt10)}>
-                                    {
-                                        displaySectionEight()
-                                    }
-                                </div>
-                            </>
-                        )}
-                    </div>
-                </div>
-
-                <div className={_cs(styles.row, styles.pt10)}>
-                    <div className={_cs(styles.col, styles.p5)}>
-                        {sections.length>6 &&(
-                            <>
-                                <JipsTitle title={sections[6].heading} icon={<AiFillSafetyCertificate/>}/>
-                                <div className={_cs(styles.row, styles.mt10)}>
-                                    {
-                                        displaySectionSeven()
-                                    }
-                                </div>
-                            </>
-                        )}
-                    </div>
-                </div>
-
-            </div>
+                    </SideBar>
+                </>
+            )}
         </div>
     );
 

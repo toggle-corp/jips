@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 import html2canvas from 'html2canvas';
+// @ts-ignore
+import ReactToPdf from 'react-to-pdf';
 import { JipsNavBar } from '../../Components';
 import { Button } from '@togglecorp/toggle-ui';
 import PartOne from './PartOne';
@@ -27,9 +29,6 @@ function Dashboard() {
             link.click();
         });
     }
-    // const myDocument = (ev: any) => (
-    //     ReactPDF.render(<PartOne />, `${__dirname}/example.pdf`)
-    // );
 
     React.useEffect(() => {
         const header = data.header.split("\n")[0];
@@ -41,6 +40,12 @@ function Dashboard() {
 
     const handlepage = () => {
         (pageNum === 0) ? setPageNum(1) : setPageNum(0);
+    }
+
+    const pdfOptions = {
+        orientation: 'landscape',
+        unit: 'in',
+        format: 'a4',
     }
     return (
         <>
@@ -61,7 +66,17 @@ function Dashboard() {
                 </div>
                 <div className={styles.buttons}>
                     <Button className={"primary"} name="save" onClick={handleClick}>Save as jpg</Button>
-                    <Button className={"primary"} name="save" >Save as pdf</Button>
+                    <ReactToPdf
+                        options={pdfOptions}
+                        targetRef={divRef}
+                        filename="jips.pdf"
+                        scale={0.59}
+                    >
+                        {({ toPdf }: { toPdf: () => void }) => (
+                            <Button className={"primary"} name="save" onClick={toPdf}>Save as pdf</Button>
+                        )}
+                    </ReactToPdf>
+                    {/* <Button className={"primary"} name="save" onClick={myDocument}>Save as pdf</Button> */}
                     <Button className={"primary"} name="next" onClick={handlepage}>{(pageNum > 0) ? "Prev Page" : "Next Page"}</Button>
                 </div>
             </div>
@@ -69,4 +84,3 @@ function Dashboard() {
     );
 }
 export default Dashboard;
-

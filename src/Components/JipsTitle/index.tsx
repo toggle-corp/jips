@@ -14,10 +14,10 @@ export default function JipsTitle(props: TitleProps) {
     const { title, icon, className } = props;
     const language = React.useContext(LanguageContext);
 
-    return (
-        <div className={_cs(styles.title, className)}>
-            {language === Language.en && <>{icon} {title}</>}
-            {language === Language.ar && <>{title} {icon}</>}
+    return(
+        <div className={_cs(styles.title, className)} style={{textAlign: (language === Language.en) ? "left" : "right"}}>
+            {language === Language.en &&<>{icon} {title}</>}
+            {language === Language.ar &&<>{title} {icon}</>}
         </div>
     );
 }

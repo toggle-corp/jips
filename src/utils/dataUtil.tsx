@@ -90,7 +90,7 @@ export const getTableBarData = (subsec:SubSection) => {
             key: key,
             name: variable,
             icon: icon,
-            render: (item: any) => {return <CellBar name={item["key"]} value={item[key]} color={colors[index%3]} bgcolor={bgColors[index%3]} />;}
+            render: (item: any) => {return <CellBar name={item["key"]} value={item[key]} color={colors[index%4]} bgcolor={bgColors[index%4]} />;}
         }
 
         columns.push(col);

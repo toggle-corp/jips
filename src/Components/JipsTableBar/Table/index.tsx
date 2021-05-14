@@ -1,4 +1,6 @@
 import React, { useEffect } from 'react';
+import { LanguageContext } from '../../../Context';
+import { Language } from '../../../types';
 import styles from './styles.module.scss';
 
 export interface Col {
@@ -18,11 +20,13 @@ interface TableProps {
 export function Table(props: TableProps) {
     const { title, columns, rows } = props;
 
-    const [data, setData] = React.useState<TableProps>({ columns: [], rows: [] });
+    const language = React.useContext(LanguageContext);
+
+    const [data, setData] = React.useState<TableProps>({columns:[], rows:[]});
 
     useEffect(()=>{
-        setData({rows:rows, columns:columns, title:title})
-    },[columns, rows, title])
+        setData({rows:rows, columns:(language === Language.en) ? columns : columns.reverse(), title:title})
+    },[columns, rows, title, language])
 
     return (
         <table className={styles.table}>
@@ -39,6 +43,7 @@ export function Table(props: TableProps) {
                                 key={index}
                                 scope="col"
                                 className={styles.head}
+                                style={{textAlign:(language===Language.ar)?"right":"left"}}
                             >
                                 {child}
                             </th>
@@ -57,7 +62,8 @@ export function Table(props: TableProps) {
                                 return (
                                     <td
                                         key={key}
-                                        className={(index === 0) ? styles.vars : styles.bars}
+                                        className={(index===0)?styles.vars:styles.bars}
+                                        style={{textAlign:(language===Language.ar)?"right":"left"}}
                                     >
                                         {(render) ? render(datum) : datum[key]}
                                     </td>

@@ -17,8 +17,8 @@ export default function JipsText(props: JipsTextProps) {
     const language = React.useContext(LanguageContext);
 
     const parseText = () => {
-        const paragraphs = text.replace("/\r", "").split("/\n").map((para: string, index: any) => {
-            return <p key={index} className={styles.paragraph}>{para}</p>;
+        const paragraphs = text.replace("/\r", "").split("/\n").map((para:string, index:any)=>{
+            return <p key={index} className={styles.paragraph} style={{textAlign:(language===Language.ar) ? "right" :"left"}}>{para}</p>;
         });
         return paragraphs;
     };

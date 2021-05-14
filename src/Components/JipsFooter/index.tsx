@@ -1,4 +1,6 @@
 import React from 'react';
+import { LanguageContext } from '../../Context';
+import { Language } from '../../types';
 import styles from './styles.module.scss';
 
 interface JipsFooterProps {
@@ -8,16 +10,31 @@ interface JipsFooterProps {
 
 export default function JipsFooter(props: JipsFooterProps) {
     const { title,subTitle } = props;
+
+    const lang = React.useContext(LanguageContext);
+    
     return (
         <div className={styles.footer}>
-            <div className={styles.container}>
-                <div className={styles.title}>
-                    {title}
+            {lang === Language.en && (
+                <div className={styles.container}>
+                    <div className={styles.title}>
+                        {title}
+                    </div>
+                    <div className={styles.subtitle}>
+                        {subTitle}
+                    </div>
                 </div>
-                <div className={styles.subtitle}>
-                    {subTitle}
+            )}
+            {lang === Language.ar && (
+                <div className={styles.container}>
+                    <div className={styles.subtitle}>
+                        {subTitle}
+                    </div>
+                    <div className={styles.title}>
+                        {title}
+                    </div>
                 </div>
-            </div>
+            )}
         </div>
     )
 }
