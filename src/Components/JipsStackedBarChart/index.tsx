@@ -36,7 +36,7 @@ export default function JipsStackedBarChart(props: JipsStackedBarChartProps) {
       </Bar>
       bars.push(bar);
     });
-    console.log(bars,keySet);
+    
     return bars;
   }
 

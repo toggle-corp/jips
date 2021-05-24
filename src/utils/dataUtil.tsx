@@ -17,7 +17,7 @@ const getIcon = (value: any) => {
     if (value['key'] === 0 ) return <IDPsInCamps />
     else if (value['key'] === 1 ) return <IDPsReturnees />
     else if (value['key'] === 2 ) return <NonDisplaced />
-    else if (value ['key'] === 3 ) return <Nomade />
+    else if (value['key'] === 3 ) return <Nomade />
     return null;
 }
 
@@ -160,7 +160,6 @@ export const getActivityData = (data: SubSection) => {
             [activity]: Math.round(values[index]*100),
             name: gender.trim().toLowerCase(),
         }));
-        console.log(activities);
         return activities;
     });
 

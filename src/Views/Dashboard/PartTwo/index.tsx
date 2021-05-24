@@ -9,15 +9,13 @@ import { FaPeopleCarry } from "react-icons/fa";
 import { AiFillSafetyCertificate, AiOutlineArrowLeft, AiOutlineArrowRight, AiOutlineSetting } from "react-icons/ai";
 
 import styles from './styles.module.scss';
-import { getBarChartData, getTableBarData, getTableData, tableData } from '../../../utils/dataUtil';
+import { getBarChartData, getTableBarData } from '../../../utils/dataUtil';
 import { DataContext } from '../../../Context/DataContext';
 import { LanguageContext } from '../../../Context';
 
 export default function PartOne() {
 
     const [dimension, setDimension] = React.useState<Dimension>({ height: 0, width: 0 });
-
-    const [scopeData, setScopeData] = React.useState<tableData>({columns:[], rows:[]});
     const [sections, setSections] = React.useState<Section[]>([]);
     const language = React.useContext(LanguageContext);
     const data:Doc = React.useContext(DataContext);
@@ -26,10 +24,7 @@ export default function PartOne() {
         const width = window.screen.availWidth - 20;
         const height = window.screen.availHeight - 100;
         setDimension({ height: height, width: width });
-        const tableInfo:tableData = getTableData(data.sections[0].body[0]);
-        getTableBarData(data.sections[0].body[0]);
-        setScopeData(tableInfo);
-        const filteredSections = data.sections.filter((section)=>section.heading && section.heading!= "")
+        const filteredSections = data.sections.filter((section)=>section.heading && section.heading!== "")
         setSections(filteredSections);
     }, [data]);
 
@@ -41,7 +36,6 @@ export default function PartOne() {
             const servceTitle = (filteredSubSecs.length > 0) ? filteredSubSecs[0].subHeading:"";
 
             const barChart = (filteredSubSecs.length > 1) ? getBarChartData({subsec:filteredSubSecs[1]}) : [];
-            const barchartTitle = (filteredSubSecs.length > 1) ? filteredSubSecs[1].subHeading : "";
             return(
                 <>
                         <JipsTableBar columns={serviceData.columns} data={serviceData.rows} title={servceTitle} />

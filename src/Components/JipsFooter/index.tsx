@@ -12,7 +12,7 @@ export default function JipsFooter(props: JipsFooterProps) {
     const { title,subTitle } = props;
 
     const lang = React.useContext(LanguageContext);
-    
+
     return (
         <div className={styles.footer}>
             {lang === Language.en && (

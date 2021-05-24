@@ -5,9 +5,7 @@ import { Dimension, Language, Section, SubSection } from '../../../types';
 import SideBar from '../SideBar';
 import { _cs } from '@togglecorp/fujs';
 import { Doc } from '../../../types';
-import { FaSearchengin } from "react-icons/fa";
 import { GiTakeMyMoney, GiGrain } from "react-icons/gi";
-import { AiFillFile, AiFillSafetyCertificate } from "react-icons/ai";
 import styles from './styles.module.scss';
 import { getActivityData, getGenderActivityData, getBarChartData, getTableBarData, getTableData, tableData } from '../../../utils/dataUtil';
 import { DataContext } from '../../../Context/DataContext';
@@ -26,7 +24,7 @@ export default function PartOne() {
 
     React.useEffect(() => {
         const width = window.screen.availWidth - 20;
-        const height = window.screen.availHeight - 100;
+        const height = window.screen.availWidth*0.71 - 100;
 
         const filteredSections = data.sections.filter((section) => section.heading && section.heading !== "")
         const tableInfo: tableData = getTableData(filteredSections[0].body[0]);
@@ -45,7 +43,7 @@ export default function PartOne() {
             cahrtData = (filteredSubSecs.length > 1) ? getBarChartData({ subsec: filteredSubSecs[1] }) : [];
 
             return (
-                <div className={_cs(styles.row)}>
+                <div className={_cs(styles.row, "bg-grey")}>
                     {language === Language.en && (
                         <>
                             <div className={styles.w60}>
@@ -55,7 +53,7 @@ export default function PartOne() {
                             </div>
                             <div className={_cs(styles.w40, styles.bl)}>
                                 {filteredSubSecs.length > 1 && (
-                                    <JipsBarChart data={cahrtData} height={220} width={dimension.width / 3 * 0.85} title={filteredSubSecs[1].subHeading} />
+                                    <JipsBarChart data={cahrtData} height={dimension.height/6} width={dimension.width / 3 * 0.85} title={filteredSubSecs[1].subHeading} />
                                 )}
                             </div>
                         </>
@@ -186,13 +184,13 @@ export default function PartOne() {
 
                         <div className={_cs(styles.row, styles.bb)}>
                             <div className={_cs(styles.col, styles.w50, styles.p5, styles.br)}>
-                                <JipsTitle title="Background" icon={<AiFillFile />} />
-                                <div className={_cs(styles.row, styles.bb, styles.mt10)}>
+                                <JipsTitle title="Background"/>
+                                <div className={_cs(styles.row, styles.bb, styles.mt10, "bg-grey")}>
                                     <JipsText data={data.background} />
                                 </div>
                                 <div className={_cs(styles.row, styles.pt10)}>
                                     <div className={styles.col}>
-                                        <JipsTitle title={data.sections[0].heading} icon={<FaSearchengin />} />
+                                        <JipsTitle title={data.sections[0].heading} />
                                         <div className={_cs(styles.row, styles.pt10)}>
                                             <JipsTable columns={scopeData.columns} rows={scopeData.rows} />
                                         </div>
@@ -202,7 +200,7 @@ export default function PartOne() {
 
                             {sections.length > 2 && (
                                 <div className={_cs(styles.col, styles.w50, styles.p5)} >
-                                    <JipsTitle title={sections[2].heading} icon={<GiGrain />} />
+                                    <JipsTitle title={sections[2].heading} icon={<GiGrain />}/>
                                     { displaySectionThree()}
                                 </div>
                             )}
@@ -213,7 +211,7 @@ export default function PartOne() {
                                 {sections.length > 1 && (
                                     <>
                                         <div className={_cs(styles.row)}>
-                                            <JipsTitle title={sections[1].heading} icon={<AiFillSafetyCertificate />} />
+                                            <JipsTitle title={sections[1].heading} />
                                         </div>
                                         {displaySectionTwo()}
                                     </>
@@ -256,13 +254,13 @@ export default function PartOne() {
                                 </div>
                             )}
                             <div className={_cs(styles.col, styles.w50, styles.p5, styles.bl)}>
-                                <JipsTitle title="خلفية" icon={<AiFillFile />} />
-                                <div className={_cs(styles.row, styles.bb, styles.mt10)}>
+                                <JipsTitle title="خلفية"/>
+                                <div className={_cs(styles.row, styles.bb, styles.mt10, "bg-grey")}>
                                     <JipsText data={data.background} />
                                 </div>
                                 <div className={_cs(styles.row, styles.pt10)}>
                                     <div className={styles.col}>
-                                        <JipsTitle title={data.sections[0].heading} icon={<FaSearchengin />} />
+                                        <JipsTitle title={data.sections[0].heading} />
                                         <div className={_cs(styles.row, styles.pt10)}>
                                             <JipsTable columns={scopeData.columns} rows={scopeData.rows} />
                                         </div>
@@ -276,7 +274,7 @@ export default function PartOne() {
                                 {sections.length > 1 && (
                                     <>
                                         <div className={_cs(styles.row)}>
-                                            <JipsTitle title={sections[1].heading} icon={<AiFillSafetyCertificate />} />
+                                            <JipsTitle title={sections[1].heading} />
                                         </div>
                                         {displaySectionTwo()}
                                     </>

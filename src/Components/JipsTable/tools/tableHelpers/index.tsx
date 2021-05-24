@@ -12,7 +12,7 @@ import Link, { LinkProps } from './Link';
 import ExternalLink, { ExternalLinkProps } from './ExternalLink';
 import Status, { StatusProps } from './Status';
 import Text, { TextProps } from './Text';
-import { ReactElement, ReactNode } from 'react';
+import { ReactNode } from 'react';
 
 export function createLinkColumn<D, K>(
     id: string,
