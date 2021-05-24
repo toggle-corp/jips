@@ -25,6 +25,7 @@ function Dashboard() {
         if (pageOne != null){
             await html2canvas(pageOne).then((canvas: HTMLCanvasElement) => {
                 const pgaeOneImg = canvas.toDataURL("image/png");
+                const ratio = 287/canvas.width;
                 pdf.addImage(pgaeOneImg, 'JPEG', 5, 5, 287, 200);
                 pdf.addPage();
             });
@@ -33,6 +34,7 @@ function Dashboard() {
         if (pageTwo != null){
             await html2canvas(pageTwo).then((cv: HTMLCanvasElement) => {
                 const pageTwoImg = cv.toDataURL("image/png");
+                const ratio = 287/cv.width;
                 pdf.addImage(pageTwoImg, 'JPEG', 5, 5,  287, 200);
             });
         }

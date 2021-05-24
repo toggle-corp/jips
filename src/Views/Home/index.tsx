@@ -1,9 +1,11 @@
-import React from 'react';
+import React, { useState } from 'react';
 import * as XLSX from 'xlsx';
 import JipsFileUpload from '../../Components/JipsFileUpload';
 import { Doc, Language } from '../../types';
 
 import { parseExcelToSections, removeBlankRowAtBeginingAndEnd } from '../../utils/excelParserUtil';
+
+import styles from './styles.module.scss';
 
 interface HomeProps {
   setLang?: (lang: Language) => void,
@@ -11,16 +13,17 @@ interface HomeProps {
 }
 
 export default function Home(props: HomeProps) {
-
   const { setLang, setData } = props;
+  const [loading, setLoading] = useState(false);
 
-  const handleFileUpload = async (file: File) => {
+  const handleFileUpload = (file: File) => {
     const extensions = file.name.split(".")[1];
     if (['xls', 'xlsx'].indexOf(extensions) < 0) {
       alert("Invalid File!");
       return false;
     }
     var reader = new FileReader();
+    setLoading(true);
     reader.onload = function (e) {
       if (e.target !== null) {
         var data = e.target.result;
@@ -31,18 +34,27 @@ export default function Home(props: HomeProps) {
 
         const cleanData = removeBlankRowAtBeginingAndEnd(dataParse);
         const parsedData = parseExcelToSections(cleanData);
-        if (parsedData && setData) setData(parsedData);
+        if (parsedData && setData) {
+          setData(parsedData);
+        }
       }
+      setLoading(false);
     };
     reader.readAsBinaryString(file);
   }
 
   return (
-    <JipsFileUpload
-      name="file"
-      multiple={false}
-      onFileOpen={handleFileUpload}
-      setLang={setLang!}
-    />
+    <div className={styles.container}>
+      {loading ? (
+        "Processing file..."
+      ) : (
+        <JipsFileUpload
+          name="file"
+          multiple={false}
+          onFileOpen={handleFileUpload}
+          setLang={setLang!}
+        />
+      )}
+    </div>
   );
 }
