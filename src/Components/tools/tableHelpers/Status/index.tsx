@@ -59,4 +59,4 @@ function Status(props: StatusProps) {
     return null;
 }
 
-export default Status;
+export default React.memo(Status);

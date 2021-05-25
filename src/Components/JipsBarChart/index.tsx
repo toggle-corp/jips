@@ -17,7 +17,7 @@ type JipsBarChartProps = {
   className?: string,
 }
 
-export default function JipsBarChart(props: JipsBarChartProps) {
+function JipsBarChart(props: JipsBarChartProps) {
   const { height, width, className, icon, title, data } = props;
 
   const [datas, setDatas] = React.useState<any[]>();
@@ -108,3 +108,5 @@ export default function JipsBarChart(props: JipsBarChartProps) {
     </div>
   );
 }
+
+export default React.memo(JipsBarChart);

@@ -1,6 +1,6 @@
 import React from 'react';
 import { unique } from '@togglecorp/fujs';
-import { BarChart, Bar, XAxis, YAxis, Legend, LabelList, ResponsiveContainer } from 'recharts';
+import { BarChart, Bar, XAxis, YAxis, Legend, LabelList } from 'recharts';
 import { LanguageContext } from '../../Context';
 import { Language } from '../../types';
 import { colors } from '../../utils/colorUtil';
@@ -16,7 +16,7 @@ type JipsStackedBarChartProps = {
   showLegends?: boolean | false
 }
 
-export default function JipsStackedBarChart(props: JipsStackedBarChartProps) {
+function JipsStackedBarChart(props: JipsStackedBarChartProps) {
   const { height, width, icon, title, data, showLegends } = props;
 
   const [graphData, setGraphData] = React.useState<any>([]);
@@ -59,7 +59,12 @@ export default function JipsStackedBarChart(props: JipsStackedBarChartProps) {
           {title} {icon}
         </div>
       )}
-        <ResponsiveContainer height={height} width={width}>
+        <div
+          style={{
+            height: `${height}px`,
+            width: `${width}px`,
+          }}
+        >
           <BarChart
             width={width-10}
             height={(!showLegends)? height : height-75}
@@ -79,7 +84,9 @@ export default function JipsStackedBarChart(props: JipsStackedBarChartProps) {
             {legend && <Legend />}
             {renderGraph()}
           </BarChart>
-        </ResponsiveContainer>
+        </div>
       </div>
   );
 }
+
+export default React.memo(JipsStackedBarChart);

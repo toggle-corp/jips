@@ -10,7 +10,7 @@ interface JipsTextProps {
     data: string,
 }
 
-export default function JipsText(props: JipsTextProps) {
+function JipsText(props: JipsTextProps) {
     const { icon, title, data } = props;
     const [text, setText] = React.useState("");
 
@@ -35,3 +35,5 @@ export default function JipsText(props: JipsTextProps) {
         </div>
     );
 }
+
+export default React.memo(JipsText);

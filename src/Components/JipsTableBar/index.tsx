@@ -12,8 +12,7 @@ interface JipsTableBarProps {
     data: any[],
 }
 
-export default function JipsTableBar(props: JipsTableBarProps) {
-
+function JipsTableBar(props: JipsTableBarProps) {
     const { title, icon, columns, data } = props;
     const language = React.useContext(LanguageContext);
     return (
@@ -32,3 +31,5 @@ export default function JipsTableBar(props: JipsTableBarProps) {
         </div>
     );
 }
+
+export default React.memo(JipsTableBar);

@@ -17,10 +17,10 @@ const SideBar:React.FC<SideBarProps> = (props) => {
 
     return(
         <div className={styles.sidebar + " " + className}>
-           { title && <h2 className={(lang === Language.ar) ? styles.rtl : styles.ltr}>{icon} {title}  </h2>}
+            { title && <h2 className={(lang === Language.ar) ? styles.rtl : styles.ltr}>{icon} {title}  </h2>}
             {props.children}
         </div>
     );
 }
 
-export default SideBar;
+export default React.memo(SideBar);

@@ -21,4 +21,4 @@ function Actions(props: Props) {
     );
 }
 
-export default Actions;
+export default React.memo(Actions);

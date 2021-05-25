@@ -12,7 +12,7 @@ interface HomeProps {
   setData?: (data: Doc) => void,
 }
 
-export default function Home(props: HomeProps) {
+function Home(props: HomeProps) {
   const { setLang, setData } = props;
   const [loading, setLoading] = useState(false);
 
@@ -40,7 +40,10 @@ export default function Home(props: HomeProps) {
       }
       setLoading(false);
     };
-    reader.readAsBinaryString(file);
+
+    window.setTimeout(() => {
+      reader.readAsBinaryString(file);
+    }, 0);
   }
 
   return (
@@ -58,3 +61,5 @@ export default function Home(props: HomeProps) {
     </div>
   );
 }
+
+export default React.memo(Home);

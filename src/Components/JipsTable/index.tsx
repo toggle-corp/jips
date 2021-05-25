@@ -13,7 +13,6 @@ interface JipsTableProps {
 }
 
 function JipsTable(props: JipsTableProps) {
-
     const {title, rows, columns} = props;
     const totalDataCount = rows.length;
 
@@ -49,4 +48,4 @@ function JipsTable(props: JipsTableProps) {
     );
 }
 
-export default JipsTable;
+export default React.memo(JipsTable);
