@@ -7,7 +7,12 @@ import { DataContext } from '../Context/DataContext';
 
 export default function IndexPage() {
     const [language, setLanguage] = useState<Language>(Language.en);
-    const [docNodes, setDocNodes] = React.useState<Doc>({header:"", footer:"", background:"", sections:[]});
+    const [docNodes, setDocNodes] = React.useState<Doc>({
+        header:"",
+        footer:"",
+        background:"",
+        sections:[],
+    });
     const [isHome, setIsHome] = React.useState<boolean>(true);
 
     const handleDataLoad = (doc:Doc) =>{

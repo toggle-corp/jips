@@ -42,4 +42,4 @@ function Heading(props: HeadingProps) {
     );
 }
 
-export default Heading;
+export default React.memo(Heading);

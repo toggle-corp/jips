@@ -88,4 +88,4 @@ function ActionCell(props: ActionProps) {
     );
 }
 
-export default ActionCell;
+export default React.memo(ActionCell);

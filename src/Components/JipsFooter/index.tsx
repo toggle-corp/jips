@@ -8,7 +8,7 @@ interface JipsFooterProps {
     subTitle:string,
 }
 
-export default function JipsFooter(props: JipsFooterProps) {
+function JipsFooter(props: JipsFooterProps) {
     const { title,subTitle } = props;
 
     const lang = React.useContext(LanguageContext);
@@ -38,3 +38,5 @@ export default function JipsFooter(props: JipsFooterProps) {
         </div>
     )
 }
+
+export default React.memo(JipsFooter);

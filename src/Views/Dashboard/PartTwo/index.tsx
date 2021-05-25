@@ -13,8 +13,7 @@ import { getBarChartData, getTableBarData } from '../../../utils/dataUtil';
 import { DataContext } from '../../../Context/DataContext';
 import { LanguageContext } from '../../../Context';
 
-export default function PartOne() {
-
+function PartTwo() {
     const [dimension, setDimension] = React.useState<Dimension>({ height: 0, width: 0 });
     const [sections, setSections] = React.useState<Section[]>([]);
     const language = React.useContext(LanguageContext);
@@ -245,3 +244,5 @@ export default function PartOne() {
     );
 
 }
+
+export default React.memo(PartTwo);

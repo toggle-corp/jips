@@ -10,7 +10,8 @@ interface TitleProps {
     icon?: any,
     className?: string,
 }
-export default function JipsTitle(props: TitleProps) {
+
+function JipsTitle(props: TitleProps) {
     const { title, icon, className } = props;
     const language = React.useContext(LanguageContext);
 
@@ -21,3 +22,5 @@ export default function JipsTitle(props: TitleProps) {
         </div>
     );
 }
+
+export default React.memo(JipsTitle);

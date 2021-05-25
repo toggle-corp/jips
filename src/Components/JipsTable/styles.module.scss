@@ -2,8 +2,9 @@
     font-size: xxx-large;
     border-style: none;
 }
+
 .container {
-    flex:1;
+    flex: 1;
     margin: var(--spacing-medium);
     padding: 5px;
 }
@@ -16,6 +17,10 @@
     .table {
         width: 100%;
         overflow-x: auto;
+
+        th {
+            position: initial!important;
+        }
 
         tr, th, td {
             border: 0!important;

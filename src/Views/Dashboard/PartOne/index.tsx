@@ -12,8 +12,7 @@ import { DataContext } from '../../../Context/DataContext';
 import { IDPsInCamps, IDPsReturnees, NonDisplaced, Nomade } from '../../../icons';
 import { LanguageContext } from '../../../Context';
 
-export default function PartOne() {
-
+function PartOne() {
     const [dimension, setDimension] = React.useState<Dimension>({ height: 0, width: 0 });
 
     const [scopeData, setScopeData] = React.useState<tableData>({ columns: [], rows: [] });
@@ -286,5 +285,6 @@ export default function PartOne() {
             )}
         </div>
     );
-
 }
+
+export default React.memo(PartOne);
