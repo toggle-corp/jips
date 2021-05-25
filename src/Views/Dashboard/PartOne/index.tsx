@@ -43,7 +43,7 @@ export default function PartOne() {
             cahrtData = (filteredSubSecs.length > 1) ? getBarChartData({ subsec: filteredSubSecs[1] }) : [];
 
             return (
-                <div className={_cs(styles.row, "bg-grey")}>
+                <div className={_cs(styles.row)}>
                     {language === Language.en && (
                         <>
                             <div className={styles.w60}>
@@ -51,7 +51,7 @@ export default function PartOne() {
                                     <JipsTableBar columns={rowCols.columns} data={rowCols.rows} title={filteredSubSecs[0].subHeading} />
                                 )}
                             </div>
-                            <div className={_cs(styles.w40, styles.bl)}>
+                            <div className={_cs(styles.w40)}>
                                 {filteredSubSecs.length > 1 && (
                                     <JipsBarChart data={cahrtData} height={dimension.height/6} width={dimension.width / 3 * 0.85} title={filteredSubSecs[1].subHeading} />
                                 )}
