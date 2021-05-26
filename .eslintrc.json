@@ -1,0 +1,14 @@
+{
+    "rules": {
+      "quotes": ["error", "double"]
+    },
+    "overrides": [
+      {
+        "files": ["src/*.js", "src/*.tsx", "src/*.jsx", "src/*.ts"],
+        "excludedFiles": "*.test.*",
+        "rules": {
+          "quotes": ["error", "single"]
+        }
+      }
+    ]
+  }
