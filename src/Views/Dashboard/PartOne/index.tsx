@@ -23,7 +23,7 @@ function PartOne() {
 
     React.useEffect(() => {
         const width = window.screen.availWidth - 20;
-        const height = window.screen.availWidth*0.71 - 100;
+        const height = window.screen.availWidth * 0.71 - 100;
 
         const filteredSections = data.sections.filter((section) => section.heading && section.heading !== "")
         const tableInfo: tableData = getTableData(filteredSections[0].body[0]);
@@ -45,14 +45,13 @@ function PartOne() {
                 <div className={_cs(styles.row)}>
                     {language === Language.en && (
                         <>
-                            <div className={styles.w60}>
+                            <div>
                                 {filteredSubSecs.length > 0 && (
                                     <JipsTableBar columns={rowCols.columns} data={rowCols.rows} title={filteredSubSecs[0].subHeading} />
                                 )}
-                            </div>
-                            <div className={_cs(styles.w40)}>
+
                                 {filteredSubSecs.length > 1 && (
-                                    <JipsBarChart data={cahrtData} height={dimension.height/6} width={dimension.width / 3 * 0.85} title={filteredSubSecs[1].subHeading} />
+                                    <JipsBarChart data={cahrtData} height={200} width={dimension.width / 3 * 0.85} title={filteredSubSecs[1].subHeading} />
                                 )}
                             </div>
                         </>
@@ -61,13 +60,11 @@ function PartOne() {
                     {language === Language.ar && (
                         <>
                             <div className={_cs(styles.w40, styles.br)}>
-                                {filteredSubSecs.length > 1 && (
-                                    <JipsBarChart data={cahrtData} height={220} width={dimension.width / 3 * 0.85} title={filteredSubSecs[1].subHeading} />
-                                )}
-                            </div>
-                            <div className={styles.w60}>
                                 {filteredSubSecs.length > 0 && (
                                     <JipsTableBar columns={rowCols.columns} data={rowCols.rows} title={filteredSubSecs[0].subHeading} />
+                                )}
+                                {filteredSubSecs.length > 1 && (
+                                    <JipsBarChart data={cahrtData} height={200} width={dimension.width / 3 * 0.85} title={filteredSubSecs[1].subHeading} />
                                 )}
                             </div>
                         </>
@@ -132,10 +129,10 @@ function PartOne() {
                                             </td>
                                             <td>
                                                 <JipsStackedBarChart
-                                                    height={(index === activitiesCategorical.length -1)?150:100}
+                                                    height={(index === activitiesCategorical.length - 1) ? 150 : 100}
                                                     width={dimension.width / 3 * 0.85}
                                                     data={activity}
-                                                    showLegends = {index === activitiesCategorical.length -1}
+                                                    showLegends={index === activitiesCategorical.length - 1}
                                                 />
                                             </td>
                                         </>
@@ -144,10 +141,10 @@ function PartOne() {
                                         <>
                                             <td>
                                                 <JipsStackedBarChart
-                                                    height={(index === activitiesCategorical.length -1)?150:100}
-                                                    width={dimension.width / 3 * 0.85}
+                                                    height={(index === activitiesCategorical.length - 1) ? 150 : 100}
+                                                    width={dimension.width / 3 * 0.75}
                                                     data={activity}
-                                                    showLegends = {index === activitiesCategorical.length -1}
+                                                    showLegends={index === activitiesCategorical.length - 1}
                                                 />
                                             </td>
                                             <td>
@@ -181,10 +178,10 @@ function PartOne() {
                 <>
                     <div className={styles.w67}>
 
-                        <div className={_cs(styles.row, styles.bb)}>
+                        <div className={_cs(styles.row)}>
                             <div className={_cs(styles.col, styles.w50, styles.p5, styles.br)}>
-                                <JipsTitle title="Background"/>
-                                <div className={_cs(styles.row, styles.bb, styles.mt10, "bg-grey")}>
+                                <JipsTitle title="Background" />
+                                <div className={_cs(styles.row, styles.mt10, "bg-grey")}>
                                     <JipsText data={data.background} />
                                 </div>
                                 <div className={_cs(styles.row, styles.pt10)}>
@@ -199,23 +196,20 @@ function PartOne() {
 
                             {sections.length > 2 && (
                                 <div className={_cs(styles.col, styles.w50, styles.p5)} >
-                                    <JipsTitle title={sections[2].heading} icon={<GiGrain />}/>
+                                    {sections.length > 1 && (
+                                        <>
+                                            <div className={_cs(styles.row)}>
+                                                <JipsTitle title={sections[1].heading} />
+                                            </div>
+                                            <div className={_cs(styles.mb, styles.bb, "bg-grey")}>
+                                                {displaySectionTwo()}
+                                            </div>
+                                        </>
+                                    )}
+                                    <JipsTitle title={sections[2].heading} icon={<GiGrain />} />
                                     { displaySectionThree()}
                                 </div>
                             )}
-                        </div>
-
-                        <div className={_cs(styles.row, styles.pt10)}>
-                            <div className="col">
-                                {sections.length > 1 && (
-                                    <>
-                                        <div className={_cs(styles.row)}>
-                                            <JipsTitle title={sections[1].heading} />
-                                        </div>
-                                        {displaySectionTwo()}
-                                    </>
-                                )}
-                            </div>
                         </div>
                     </div>
                     <SideBar className={_cs(styles.bl, styles.p5)}>
@@ -245,15 +239,25 @@ function PartOne() {
                     </SideBar>
 
                     <div className={styles.w67}>
-                        <div className={_cs(styles.row, styles.bb)}>
+                        <div className={_cs(styles.row)}>
                             {sections.length > 2 && (
                                 <div className={_cs(styles.col, styles.w50, styles.p5)} >
+                                    {sections.length > 1 && (
+                                        <>
+                                            <div className={_cs(styles.row)}>
+                                                <JipsTitle title={sections[1].heading} />
+                                            </div>
+                                            <div className={_cs(styles.mb, styles.bb, "bg-grey")}>
+                                                {displaySectionTwo()}
+                                            </div>
+                                        </>
+                                    )}
                                     <JipsTitle title={sections[2].heading} icon={<GiGrain />} />
                                     { displaySectionThree()}
                                 </div>
                             )}
                             <div className={_cs(styles.col, styles.w50, styles.p5, styles.bl)}>
-                                <JipsTitle title="خلفية"/>
+                                <JipsTitle title="خلفية" />
                                 <div className={_cs(styles.row, styles.bb, styles.mt10, "bg-grey")}>
                                     <JipsText data={data.background} />
                                 </div>
@@ -265,19 +269,6 @@ function PartOne() {
                                         </div>
                                     </div>
                                 </div>
-                            </div>
-                        </div>
-
-                        <div className={_cs(styles.row, styles.pt10)}>
-                            <div className="col">
-                                {sections.length > 1 && (
-                                    <>
-                                        <div className={_cs(styles.row)}>
-                                            <JipsTitle title={sections[1].heading} />
-                                        </div>
-                                        {displaySectionTwo()}
-                                    </>
-                                )}
                             </div>
                         </div>
                     </div>

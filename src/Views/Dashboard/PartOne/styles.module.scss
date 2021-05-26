@@ -2,7 +2,6 @@
     display: flex;
     width: 100%;
     flex-direction: row;
-    align-items: flex-start;
 }
 
 .icons {
@@ -17,10 +16,6 @@
     border-right: 1px solid #e8e8e8;
 }
 
-.bb{
-    border-bottom: 1px solid #e8e8e8;
-}
-
 .bl{
     border-left: 1px solid #e8e8e8;
 }
@@ -30,19 +25,21 @@
 }
 
 .mt10{
-    margin-top: 10px;
+    margin-top: 30px;
 }
-
+.mb{
+    margin-bottom: 30px;
+}
 .p10{
     padding: 10px;
 }
 
 .p5{
-    padding: 5px;
+    padding: 10px;
 }
 
 .pt10{
-    padding-top: 10px;
+    padding-top: 30px;
 }
 
 .col{

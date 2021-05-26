@@ -63,6 +63,7 @@ function Dashboard() {
                 <Modal
                     heading="Generating pdf"
                     closeButtonHidden
+                    onClose ={()=>setDownloading(false)}
                 >
                     Please wait...
                 </Modal>

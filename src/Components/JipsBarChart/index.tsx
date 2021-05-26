@@ -99,7 +99,7 @@ function JipsBarChart(props: JipsBarChartProps) {
         }}
         barCategoryGap={2}
       >
-        <XAxis dataKey="key" height={60} type="category" tick={renderCustomAxisTick} reversed={language === Language.ar} />
+        <XAxis dataKey="key" height={70} type="category" tick={renderCustomAxisTick} reversed={language === Language.ar} />
         <YAxis type="number" domain={[0, 100]} hide={true} />
         <Tooltip />
         <Legend fontSize={10} className={styles.legend} />

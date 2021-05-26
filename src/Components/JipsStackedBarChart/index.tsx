@@ -1,6 +1,5 @@
 import React from 'react';
-import { unique } from '@togglecorp/fujs';
-import { BarChart, Bar, XAxis, YAxis, Legend, LabelList } from 'recharts';
+import { BarChart, Bar, XAxis, YAxis, Legend, LabelList, ResponsiveContainer } from 'recharts';
 import { LanguageContext } from '../../Context';
 import { Language } from '../../types';
 import { colors } from '../../utils/colorUtil';
@@ -16,17 +15,15 @@ type JipsStackedBarChartProps = {
   showLegends?: boolean | false
 }
 
-function JipsStackedBarChart(props: JipsStackedBarChartProps) {
+export default function JipsStackedBarChart(props: JipsStackedBarChartProps) {
   const { height, width, icon, title, data, showLegends } = props;
 
   const [graphData, setGraphData] = React.useState<any>([]);
-  const [legend, setLegend] = React.useState<boolean>(false);
+  const [legend, setLEgend] = React.useState<boolean>(false);
   const language = React.useContext(LanguageContext);
 
   const renderGraph = () => {
-    const keySet1 = Object.keys(data[0]).filter((key: string) => key !== "name" && key !== "variable" && key !== "key");
-    const keySet2 = Object.keys(data[1]).filter((key: string) => key !== "name" && key !== "variable" && key !== "key");
-    const keySet = unique([...keySet1, ...keySet2]);
+    const keySet = Object.keys(data[0]).filter((key: string) => key !== "name" && key !== "variable" && key !== "key");
     const bars: any = [];
 
     keySet.forEach((payload: string, index: number) => {
@@ -39,12 +36,13 @@ function JipsStackedBarChart(props: JipsStackedBarChartProps) {
       </Bar>
       bars.push(bar);
     });
+    
     return bars;
   }
 
   React.useEffect(()=>{
     setGraphData(data);
-    (showLegends) ? setLegend(true) : setLegend(false);
+    (showLegends) ? setLEgend(true) : setLEgend(false);
   }, [data, showLegends]);
 
   return (
@@ -59,12 +57,7 @@ function JipsStackedBarChart(props: JipsStackedBarChartProps) {
           {title} {icon}
         </div>
       )}
-        <div
-          style={{
-            height: `${height}px`,
-            width: `${width}px`,
-          }}
-        >
+        <ResponsiveContainer height={height} width={width}>
           <BarChart
             width={width-10}
             height={(!showLegends)? height : height-75}
@@ -84,9 +77,7 @@ function JipsStackedBarChart(props: JipsStackedBarChartProps) {
             {legend && <Legend />}
             {renderGraph()}
           </BarChart>
-        </div>
+        </ResponsiveContainer>
       </div>
   );
 }
-
-export default React.memo(JipsStackedBarChart);

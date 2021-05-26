@@ -6,8 +6,9 @@ import styles from './styles.module.scss';
 
 interface SideBarProps{
     title?: string,
-    icon?: React.Component,
+    icon?: any,
     className?: string,
+    children?: React.ReactNode,
 }
 
 const SideBar:React.FC<SideBarProps> = (props) => {

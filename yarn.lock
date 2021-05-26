@@ -1697,7 +1697,7 @@
   dependencies:
     "@babel/runtime" "^7.7.7"
 
-"@togglecorp/toggle-ui@^0.10.0":
+"@togglecorp/toggle-ui@^0.10.1":
   version "0.10.1"
   resolved "https://registry.yarnpkg.com/@togglecorp/toggle-ui/-/toggle-ui-0.10.1.tgz#404e3a858f36b10bbb9a560028cd0fdde7e1af95"
   integrity sha512-pZUGb8BROOmrRx97ZEDR6ZHIWhXKSEnwq2xpobTGb9KviCdHB7WUAHn3RfCbkv1b+JjvLLN2/FkO+MODqgtyOg==
@@ -5349,7 +5349,7 @@ file-saver@^2.0.2:
   resolved "https://registry.yarnpkg.com/file-saver/-/file-saver-2.0.5.tgz#d61cfe2ce059f414d899e9dd6d4107ee25670c38"
   integrity sha512-P9bmyZ3h/PRG+Nzga+rbdI4OEpNDzAVyy74uVO9ATgzLK6VtAsYybF/+TOCvrc0MO793d6+42lLyZTw7/ArVzA==
 
-"file-saver@github:eligrey/FileSaver.js#1.3.8":
+file-saver@eligrey/FileSaver.js#1.3.8:
   version "1.3.8"
   resolved "https://codeload.github.com/eligrey/FileSaver.js/tar.gz/e865e37af9f9947ddcced76b549e27dc45c1cb2e"
 
