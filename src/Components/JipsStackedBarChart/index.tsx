@@ -64,7 +64,7 @@ export default function JipsStackedBarChart(props: JipsStackedBarChartProps) {
             data={graphData}
             layout="vertical"
             margin={{
-              top: 20,
+              top: 5,
               right: 30,
               left: 20,
               bottom: 15,
