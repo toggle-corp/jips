@@ -59,7 +59,7 @@ function PartOne() {
 
                     {language === Language.ar && (
                         <>
-                            <div className={_cs(styles.w40, styles.br)}>
+                            <div>
                                 {filteredSubSecs.length > 0 && (
                                     <JipsTableBar columns={rowCols.columns} data={rowCols.rows} title={filteredSubSecs[0].subHeading} />
                                 )}
