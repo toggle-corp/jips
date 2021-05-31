@@ -49,10 +49,10 @@ function CellBar(props: CellBarProps) {
                 >
                     <XAxis type="number" hide={true} domain={[0, 100]} />
                     <YAxis dataKey="name" type="category" scale="band" hide={true} />
-                    <Bar 
-                        barSize={20} 
-                        dataKey="val" 
-                        fill={(value > 0) ? color : bgcolor} background={{ fill: bgcolor }} 
+                    <Bar
+                        barSize={20}
+                        dataKey="val"
+                        fill={(value > 0) ? color : bgcolor} background={{ fill: bgcolor }}
                         label={CustomLabel}
                     />
                 </ComposedChart>

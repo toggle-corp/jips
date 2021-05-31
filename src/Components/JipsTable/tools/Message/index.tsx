@@ -11,7 +11,7 @@ interface MessageProps {
 function Message(props: MessageProps) {
     const {
         className,
-        message = 'I am the walrus!',
+        message = 'No data found',
     } = props;
 
     return (

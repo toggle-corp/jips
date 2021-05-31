@@ -14,7 +14,7 @@ export default function JipsNavBar(props: JipsNavBarProps) {
             <div className={styles.container}>
                 <img src={image} className={styles.logo} alt="JIPS Logo" />
                 <div className={styles.wrapper}>
-                    <div className={styles.title}>{title}</div>
+                    <div className={styles.title} >{title}</div>
                     <div className={styles.subtitle}>{subTitle}</div>
                 </div>
             </div>

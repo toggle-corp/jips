@@ -43,7 +43,7 @@ export function Table(props: TableProps) {
                                 key={index}
                                 scope="col"
                                 className={styles.head}
-                                style={{textAlign:(language===Language.ar)?"right":"left"}}
+                                style={{textAlign:(language===Language.ar)?"right":"left", fontSize:(language===Language.ar)? "10px":"auto"}}
                             >
                                 {child}
                             </th>
@@ -63,7 +63,7 @@ export function Table(props: TableProps) {
                                     <td
                                         key={key}
                                         className={(index===0)?styles.vars:styles.bars}
-                                        style={{textAlign:(language===Language.ar)?"right":"left"}}
+                                        style={{textAlign:(language===Language.ar)?"right":"left",  fontSize:(language===Language.ar)? "12px":"auto"}}
                                     >
                                         {(render) ? render(datum) : datum[key]}
                                     </td>

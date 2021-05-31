@@ -37,24 +37,24 @@ function JipsBarChart(props: JipsBarChartProps) {
     var showTitle = payload.value < 4;
     var icon: any;
     switch (payload.value) {
-      case 0: icon = <IDPsInCamps x={x - 30} y={y+7} />; break;
-      case 1: icon = <IDPsReturnees x={x - 30} y={y+7} />; break;
-      case 2: icon = <NonDisplaced x={x - 30} y={y +7} />; break;
-      case 3: icon = <Nomade x={x - 30} y={y +7} />; break;
-      default: icon = <text fontSize={10} x={x - 30} y={y + 3} fill="#000">
+      case 0: icon = <IDPsInCamps x = { x - 30 } y = { y + 7 } />; break;
+      case 1: icon = <IDPsReturnees x = { x - 30 } y = { y + 7 } />; break;
+      case 2: icon = <NonDisplaced x = { x - 30 } y = { y + 7 } />; break;
+      case 3: icon = <Nomade x = { x - 30 } y = { y + 7 } />; break;
+      default: icon = <text fontSize={10} x = { x - 30 } y = { y + 3 } fill="#000">
         {(datas && datas.length > payload.value) ? datas[payload.value].name : payload.value}
       </text>; break;
     }
     return <svg>
       <g>
         {icon}
-        {showTitle && <text x={x - 30} y={y + 2} fontSize={10}>{(datas && datas.length > payload.value) ? datas[payload.value].name : payload.value}</text>}
+        {showTitle && <text x = { x - 30 } y = { y + 2 } fontSize = { 10 }> {(datas && datas.length > payload.value) ? datas[payload.value].name : payload.value}</text>}
       </g>
     </svg>;
   };
 
-  const CustomLabel = (p: any) => {
-    return <text x={p.x} y={p.y} dx={p.width / 5} dy={-2} fill={p.fill} fontSize={12} textAnchor="top">{p.value + "%"}</text>
+  const CustomLabel = ( p : any ) => {
+    return <text x = { p.x } y = { p.y } dx ={ p.width / 5 } dy = {-2} fill = { p.fill } fontSize = { 12 } textAnchor = "top"> { p.value + "%" }</text>
   }
 
   const getBar = () => {
