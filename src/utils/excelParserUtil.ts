@@ -14,7 +14,6 @@ export function removeBlankRowAtBeginingAndEnd(data:any[]){
 
 export function parseExcelToSections(data:any[]){
     if(data.length < 7 || data[0].length < 2) return null;
-
     const userInterface:Doc = {
         header:data[0][1],
         footer:data[1][1],
@@ -29,11 +28,11 @@ export function parseExcelToSections(data:any[]){
 
     const keys = data[3].slice(2);
     data.slice(4).forEach((datum) => {
-        if( (datum.length === 1 || datum.length >=5 )&& (typeof datum[0] !== 'undefined') && (datum[0] !== null) && (datum[0] !== '')){
+        if( (datum.length === 1 || datum.length > 2 )&& (typeof datum[0] !== 'undefined') && (datum[0] !== null) && (datum[0] !== '')){
             if(typeof head !== 'undefined' && typeof docSec !== 'undefined') {
                 if(sub && sub.vars.length > 0) docSec.body.push(sub);
                 subhead = "";
-                sub = {"subHeading":subhead, "vars":[]}; 
+                sub = {"subHeading":subhead, "vars":[]};
                 userInterface.sections.push(docSec);
             }
 
@@ -52,7 +51,7 @@ export function parseExcelToSections(data:any[]){
             sub = {"subHeading":subhead, "vars":[]};
         }
 
-        if(datum.length >=5) {
+        if(datum.length > 2) {
 
             var measure:any = datum[1];
             var values = datum.slice(2);
