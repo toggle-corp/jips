@@ -3,7 +3,7 @@ import CellBar from '../Components/JipsTableBar/CellBar';
 import { SubSection, Values } from "../types";
 import { bgColors, colors } from './colorUtil';
 import { listToGroupList, mapToList } from '@togglecorp/fujs';
-import { IDPsInCamps, IDPsReturnees, Nomade, NonDisplaced } from '../icons';
+import { IDPsInCamps, IDPsReturnees, Nomade, NonDisplaced, IDPsOutOfCamp, ReturnRefugee } from '../icons';
 import { Col } from '../Components/JipsTableBar/Table';
 
 
@@ -17,6 +17,8 @@ const getIcon = (value: any) => {
     else if (value.variable.toLowerCase().replace("-", "").replace(/\s/g, '') === "nondisplaced") return <NonDisplaced />
     else if (value.variable.toLowerCase().replace("-", "").replace(/\s/g, '') === "idpreturnees") return <IDPsReturnees />
     else if (value.variable.toLowerCase().replace("-", "").replace(/\s/g, '') === "nomade") return <Nomade />
+    else if (value.variable.toLowerCase().replace("-", "").replace(/\s/g, '') === "idpsoutofcamp") return <IDPsOutOfCamp />
+    else if (value.variable.toLowerCase().replace("-", "").replace(/\s/g, '') === "returnrefugee") return <ReturnRefugee />
     return null;
 }
 
@@ -95,6 +97,8 @@ export const getTableBarData = (subsec: SubSection) => {
             case "idpreturnees": icon = <IDPsReturnees />; break;
             case "nondisplaced": icon = <NonDisplaced />; break;
             case "nomade": icon = <Nomade />; break;
+            case "idpsoutofcamp": icon = <IDPsOutOfCamp />; break;
+            case "returnrefugee": icon = <ReturnRefugee />; break;
             default: icon = ""; break;
         }
 

@@ -9,7 +9,7 @@ import { GiTakeMyMoney, GiGrain } from "react-icons/gi";
 import styles from './styles.module.scss';
 import { getActivityData, getGenderActivityData, getBarChartData, getTableBarData, getTableData, tableData } from '../../../utils/dataUtil';
 import { DataContext } from '../../../Context/DataContext';
-import { IDPsInCamps, IDPsReturnees, NonDisplaced, Nomade } from '../../../icons';
+import { IDPsInCamps, IDPsReturnees, NonDisplaced, Nomade, IDPsOutOfCamp, ReturnRefugee } from '../../../icons';
 import { LanguageContext } from '../../../Context';
 
 function PartOne() {
@@ -120,10 +120,10 @@ function PartOne() {
                                         <>
                                             <td>
                                                 <div>
-                                                    {index === 0 && <IDPsInCamps />}
-                                                    {index === 1 && <IDPsReturnees />}
-                                                    {index === 2 && <NonDisplaced />}
-                                                    {index === 3 && <Nomade />}
+                                                    {activity[0].key.toLowerCase().replace("-", "").replace(/\s/g, '') === "idpsincamps" && <IDPsInCamps />}
+                                                    {activity[0].key.toLowerCase().replace("-", "").replace(/\s/g, '') === "idpreturnees" && <IDPsReturnees />}
+                                                    {activity[0].key.toLowerCase().replace("-", "").replace(/\s/g, '') === "nondisplaced" && <NonDisplaced />}
+                                                    {activity[0].key.toLowerCase().replace("-", "").replace(/\s/g, '') === "nomade" && <Nomade />}
                                                     <p style={{ fontSize: "12px" }}>{keys[index]}</p>
                                                 </div>
                                             </td>
@@ -149,10 +149,12 @@ function PartOne() {
                                             </td>
                                             <td>
                                                 <div>
-                                                    {index === 0 && <IDPsInCamps />}
-                                                    {index === 1 && <IDPsReturnees />}
-                                                    {index === 2 && <NonDisplaced />}
-                                                    {index === 3 && <Nomade />}
+                                                    {activity[0].key.toLowerCase().replace("-", "").replace(/\s/g, '') === "idpsincamps" && <IDPsInCamps />}
+                                                    {activity[0].key.toLowerCase().replace("-", "").replace(/\s/g, '') === "idpreturnees" && <IDPsReturnees />}
+                                                    {activity[0].key.toLowerCase().replace("-", "").replace(/\s/g, '') === "nondisplaced" && <NonDisplaced />}
+                                                    {activity[0].key.toLowerCase().replace("-", "").replace(/\s/g, '') === "nomade" && <Nomade />}
+                                                    {activity[0].key.toLowerCase().replace("-", "").replace(/\s/g, '') === "idpsoutofcamp" && <IDPsOutOfCamp />}
+                                                    {activity[0].key.toLowerCase().replace("-", "").replace(/\s/g, '') === "returnrefugee" && <ReturnRefugee />}
                                                     <p style={{ fontSize: "12px" }}>{keys[index]}</p>
                                                 </div>
                                             </td>
