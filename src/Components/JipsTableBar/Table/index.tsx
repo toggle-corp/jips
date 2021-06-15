@@ -22,11 +22,11 @@ export function Table(props: TableProps) {
 
     const language = React.useContext(LanguageContext);
 
-    const [data, setData] = React.useState<TableProps>({columns:[], rows:[]});
+    const [data, setData] = React.useState<TableProps>({ columns: [], rows: [] });
 
-    useEffect(()=>{
-        setData({rows:rows, columns:(language === Language.en) ? columns : columns.reverse(), title:title})
-    },[columns, rows, title, language])
+    useEffect(() => {
+        setData({ rows: rows, columns: (language === Language.en) ? columns : columns.reverse(), title: title })
+    }, [columns, rows, title, language])
 
     return (
         <table className={styles.table}>
@@ -43,7 +43,7 @@ export function Table(props: TableProps) {
                                 key={index}
                                 scope="col"
                                 className={styles.head}
-                                style={{textAlign:(language===Language.ar)?"right":"left", fontSize:(language===Language.ar)? "10px":"auto"}}
+                                style={{ textAlign: (language === Language.ar) ? "right" : "left", fontSize: (language === Language.ar) ? "10px" : "auto" }}
                             >
                                 {child}
                             </th>
@@ -62,8 +62,8 @@ export function Table(props: TableProps) {
                                 return (
                                     <td
                                         key={key}
-                                        className={(index===0)?styles.vars:styles.bars}
-                                        style={{textAlign:(language===Language.ar)?"right":"left",  fontSize:(language===Language.ar)? "12px":"auto"}}
+                                        className={(index === 0) ? styles.vars : styles.bars}
+                                        style={{ textAlign: (language === Language.ar) ? "right" : "left", fontSize: (language === Language.ar) ? "12px" : "auto" }}
                                     >
                                         {(render) ? render(datum) : datum[key]}
                                     </td>
