@@ -124,6 +124,7 @@ function PartOne() {
                                                     {activity[0].key.toLowerCase().replace("-", "").replace(/\s/g, '') === "idpreturnees" && <IDPsReturnees />}
                                                     {activity[0].key.toLowerCase().replace("-", "").replace(/\s/g, '') === "nondisplaced" && <NonDisplaced />}
                                                     {activity[0].key.toLowerCase().replace("-", "").replace(/\s/g, '') === "damrahresidents" && <Nomade />}
+                                                    {activity[0].key.toLowerCase().replace("-", "").replace(/\s/g, '') === "nomade" && <Nomade />}
                                                     {activity[0].key.toLowerCase().replace("-", "").replace(/\s/g, '') === "idpsoutofcamp" && <IDPsOutOfCamp />}
                                                     {activity[0].key.toLowerCase().replace("-", "").replace(/\s/g, '') === "returnrefugee" && <ReturnRefugee />}
                                                     <p style={{ fontSize: "12px" }}>{keys[index]}</p>
@@ -155,6 +156,7 @@ function PartOne() {
                                                     {activity[0].key.toLowerCase().replace("-", "").replace(/\s/g, '') === "idpreturnees" && <IDPsReturnees />}
                                                     {activity[0].key.toLowerCase().replace("-", "").replace(/\s/g, '') === "nondisplaced" && <NonDisplaced />}
                                                     {activity[0].key.toLowerCase().replace("-", "").replace(/\s/g, '') === "damrahresidents" && <Nomade />}
+                                                    {activity[0].key.toLowerCase().replace("-", "").replace(/\s/g, '') === "nomade" && <Nomade />}
                                                     {activity[0].key.toLowerCase().replace("-", "").replace(/\s/g, '') === "idpsoutofcamp" && <IDPsOutOfCamp />}
                                                     {activity[0].key.toLowerCase().replace("-", "").replace(/\s/g, '') === "returnrefugee" && <ReturnRefugee />}
                                                     <p style={{ fontSize: "12px" }}>{keys[index]}</p>
