@@ -8,6 +8,13 @@
     align-items: center;
     margin: auto;
 
+    > .error{
+        font-size: 25px;
+        font-weight: 600;
+        color: red;
+        padding-top: 30px;
+    }
+
     > .fileUploadWrapper{
         background-color: grey;
         border: "1px solid #000";

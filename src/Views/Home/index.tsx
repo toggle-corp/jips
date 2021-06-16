@@ -4,6 +4,7 @@ import JipsFileUpload from '../../Components/JipsFileUpload';
 import { Doc, Language } from '../../types';
 
 import { parseExcelToSections, removeBlankRowAtBeginingAndEnd } from '../../utils/excelParserUtil';
+import { validate } from '../../utils/excelValidator';
 
 import styles from './styles.module.scss';
 
@@ -15,6 +16,7 @@ interface HomeProps {
 function Home(props: HomeProps) {
   const { setLang, setData } = props;
   const [loading, setLoading] = useState(false);
+  const [error, setError] = useState("");
 
   const handleFileUpload = (file: File) => {
     const extensions = file.name.split(".")[1];
@@ -33,9 +35,13 @@ function Home(props: HomeProps) {
         const dataParse = XLSX.utils.sheet_to_json(ws, { header: 1 });
 
         const cleanData = removeBlankRowAtBeginingAndEnd(dataParse);
-        const parsedData = parseExcelToSections(cleanData);
-        if (parsedData && setData) {
-          setData(parsedData);
+        if (validate(cleanData)){
+          const parsedData = parseExcelToSections(cleanData);
+          if (parsedData && setData) {
+            setData(parsedData);
+          }
+        } else {
+          setError("Invalid Excel File!");
         }
       }
       setLoading(false);
@@ -56,6 +62,7 @@ function Home(props: HomeProps) {
           multiple={false}
           onFileOpen={handleFileUpload}
           setLang={setLang!}
+          error={error}
         />
       )}
     </div>

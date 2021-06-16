@@ -9,15 +9,18 @@ type JipsFileUploadProps = {
     multiple: boolean,
     onFileOpen?: (file: File) => void,
     setLang: (lang: Language) => void,
+    error?: string,
 }
 
 export default function JipsFileUpload(props: JipsFileUploadProps) {
 
-    const { name, multiple, onFileOpen, setLang } = props;
+    const { name, multiple, onFileOpen, setLang, error } = props;
 
     const lang = useContext(LanguageContext);
 
     const [isEn, setIsEn] = useState<boolean>(true);
+
+    const [err, setErr] = useState<string>("");
 
     const handleSelectLang = () => {
         setLang((!isEn) ? Language.en : Language.ar);
@@ -32,10 +35,12 @@ export default function JipsFileUpload(props: JipsFileUploadProps) {
 
     useEffect(() => {
         setIsEn(lang === Language.en);
-    }, [lang]);
+        if(error && error !== "") setErr(error);
+    }, [lang, error]);
 
     return (
         <div className={styles.center}>
+            {error && <div className={styles.error}>{error}</div>}
             <div className={styles.fileUploadWrapper}>
                 <button className={styles.uploadbtn}>Upload a file</button>
                 <input type="file" name={name} onChange={handleFileChange} multiple={multiple} />

@@ -6,7 +6,6 @@ import { listToGroupList, mapToList } from '@togglecorp/fujs';
 import { IDPsInCamps, IDPsReturnees, Nomade, NonDisplaced, IDPsOutOfCamp, ReturnRefugee } from '../icons';
 import { Col } from '../Components/JipsTableBar/Table';
 
-
 export interface tableData {
     columns: any[],
     rows: any[],
