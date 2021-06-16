@@ -41,7 +41,7 @@ function JipsBarChart(props: JipsBarChartProps) {
             case "idpsincamps": icon = <IDPsInCamps x={x - 30} y={y + 7} />; break;
             case "idpreturnees": icon = <IDPsReturnees x={x - 30} y={y + 7} />; break;
             case "nondisplaced": icon = <NonDisplaced x={x - 30} y={y + 7} />; break;
-            case "nomade": icon = <Nomade x={x - 30} y={y + 7} />; break;
+            case "damrahresidents": icon = <Nomade x={x - 30} y={y + 7} />; break;
             case "idpsoutofcamp": icon = <IDPsOutOfCamp x={x - 30} y={y + 7} />; break;
             case "returnrefugee": icon = <ReturnRefugee x={x - 30} y={y + 7} />; break;
             default: icon = <text fontSize={10} x={x - 30} y={y + 3} fill="#000">

@@ -12,10 +12,11 @@ export interface tableData {
 }
 
 const getIcon = (value: any) => {
+    console.log('in getIcon::>>', value);
     if (value.variable.toLowerCase().replace("-", "").replace(/\s/g, '') === "idpsincamps") return <IDPsInCamps />
     else if (value.variable.toLowerCase().replace("-", "").replace(/\s/g, '') === "nondisplaced") return <NonDisplaced />
     else if (value.variable.toLowerCase().replace("-", "").replace(/\s/g, '') === "idpreturnees") return <IDPsReturnees />
-    else if (value.variable.toLowerCase().replace("-", "").replace(/\s/g, '') === "nomade") return <Nomade />
+    else if (value.variable.toLowerCase().replace("-", "").replace(/\s/g, '') === "damrahresidents") return <Nomade />
     else if (value.variable.toLowerCase().replace("-", "").replace(/\s/g, '') === "idpsoutofcamp") return <IDPsOutOfCamp />
     else if (value.variable.toLowerCase().replace("-", "").replace(/\s/g, '') === "returnrefugee") return <ReturnRefugee />
     return null;
@@ -95,7 +96,7 @@ export const getTableBarData = (subsec: SubSection) => {
             case "idpsincamps": icon = <IDPsInCamps />; break;
             case "idpreturnees": icon = <IDPsReturnees />; break;
             case "nondisplaced": icon = <NonDisplaced />; break;
-            case "nomade": icon = <Nomade />; break;
+            case "damrahresidents": icon = <Nomade />; break;
             case "idpsoutofcamp": icon = <IDPsOutOfCamp />; break;
             case "returnrefugee": icon = <ReturnRefugee />; break;
             default: icon = ""; break;
