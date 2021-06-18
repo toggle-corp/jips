@@ -3,6 +3,7 @@ import styles from './styles.module.scss';
 import { Switch } from '@togglecorp/toggle-ui';
 import { LanguageContext } from '../../Context';
 import { Language } from '../../types';
+import { Link } from 'react-router-dom';
 
 type JipsFileUploadProps = {
     name: string,
@@ -40,7 +41,20 @@ export default function JipsFileUpload(props: JipsFileUploadProps) {
 
     return (
         <div className={styles.center}>
-            {error && <div className={styles.error}>{error}</div>}
+            {error &&
+                <>
+                    <div className={styles.error}>
+                        {error}
+                    </div>
+                    <div>
+                        <a
+                            href="https://github.com/toggle-corp/jips/blob/develop-main/src/Sample%20data.xlsx?raw=true"
+                        >
+                            Download Sample
+                        </a>
+                    </div>
+                </>
+            }
             <div className={styles.fileUploadWrapper}>
                 <button className={styles.uploadbtn}>Upload a file</button>
                 <input type="file" name={name} onChange={handleFileChange} multiple={multiple} />
