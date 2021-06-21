@@ -41,7 +41,7 @@ export default function JipsFileUpload(props: JipsFileUploadProps) {
 
     return (
         <div className={styles.center}>
-                        {error &&
+            {error &&
                 <>
                     <div className={styles.error}>
                         {error}
@@ -52,7 +52,7 @@ export default function JipsFileUpload(props: JipsFileUploadProps) {
                 <button className={styles.uploadbtn}>Upload a file</button>
                 <input type="file" name={name} onChange={handleFileChange} multiple={multiple} />
             </div>
-            <div>
+            <div className={styles.link}>
                 <a
                     href="https://github.com/toggle-corp/jips/blob/develop-main/src/Sample%20data.xlsx?raw=true"
                 >
