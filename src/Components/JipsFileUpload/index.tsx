@@ -46,15 +46,15 @@ export default function JipsFileUpload(props: JipsFileUploadProps) {
                     <div className={styles.error}>
                         {error}
                     </div>
-                    <div>
-                        <a
-                            href="https://github.com/toggle-corp/jips/blob/develop-main/src/Sample%20data.xlsx?raw=true"
-                        >
-                            Download Sample
-                        </a>
-                    </div>
                 </>
             }
+            <div>
+                <a
+                    href="https://github.com/toggle-corp/jips/blob/develop-main/src/Sample%20data.xlsx?raw=true"
+                >
+                    Download Sample
+                </a>
+            </div>
             <div className={styles.fileUploadWrapper}>
                 <button className={styles.uploadbtn}>Upload a file</button>
                 <input type="file" name={name} onChange={handleFileChange} multiple={multiple} />
