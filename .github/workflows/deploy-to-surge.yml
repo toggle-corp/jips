@@ -48,6 +48,7 @@ jobs:
   surge-deploy:
     name: Deploy to Surge
     needs: build
+    environment: surge-deploy
     runs-on: ubuntu-latest
 
     if: github.event_name == 'push'
