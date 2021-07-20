@@ -8,19 +8,12 @@ nav {
         width: 95%;
         margin-left: auto;
         margin-right: auto;
+        height: 100%;
         display: flex;
         flex-direction: row;
         justify-content: space-between;
 
-        > .logo {
-            display: block;
-            width: auto;
-            height: 10vh;
-            margin-right: auto;
-            opacity: 1;
-        }
         >.wrapper {
-            margin-left: auto;
             display: flex;
             max-width: 960px;
             flex-direction: column;
@@ -29,32 +22,39 @@ nav {
             margin-bottom: auto;
             height: 9vh;
             justify-content: space-around;
+
             > .title {
                 font-family: 'Overpass', sans-serif;
                 font-size: 20px;
                 font-weight: 800;
                 letter-spacing: 1px;
                 text-transform: uppercase;
-                text-align: right;
+                text-align: left;
                 word-wrap: break-word;
                 line-height: 1;
                 color: #505BA1;
                 opacity:1;
                 padding: 0;
                 display: block;
-                margin-left: 15%;
             }
             > .subtitle {
                 font-family: 'Overpass', sans-serif;
                 font-size: 16px;
                 font-weight: 600;
                 letter-spacing: 1px;
-                text-align: right;
+                text-align: left;
                 color: #2B2B2B;
                 display: block;
                 height:18px;
                 opacity:1;
             }
+        }
+        > .logo {
+            display: inline-flex;
+            justify-content: space-evenly;
+            margin-top: 20px;
+            margin-bottom: auto;
+            width: 25vw;
         }
     }
 }

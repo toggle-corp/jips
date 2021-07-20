@@ -1,6 +1,7 @@
 import React from 'react';
 import { LanguageContext } from '../../Context';
 import { Language } from '../../types';
+import image from './jips.png';
 import styles from './styles.module.scss';
 
 interface JipsFooterProps {
@@ -23,6 +24,7 @@ function JipsFooter(props: JipsFooterProps) {
                     <div className={styles.subtitle}>
                         {subTitle}
                     </div>
+                    <img src={image} className={styles.logo} alt="JIPS Logo" />
                 </div>
             )}
             {lang === Language.ar && (
