@@ -1,6 +1,6 @@
 import React from 'react';
 import styles from './styles.module.scss';
-import { FAOIcon,  UnicefIcon, UNHCRIcon, UNHabitIcon, UNDPIcon, IOMIcon } from '../../icons';
+import { FAOIcon, UnicefIcon, UNHCRIcon, UNHabitIcon, UNDPIcon, IOMIcon } from '../../icons';
 
 interface JipsNavBarProps {
     title: string,
@@ -17,29 +17,31 @@ export default function JipsNavBar(props: JipsNavBarProps) {
                     <div className={styles.subtitle}>{subTitle}</div>
                 </div>
                 <div className={styles.logo}>
-                    <UnicefIcon
-                    height={65}
-                    width={65}
-                    />
-                    <UNHCRIcon
-                    height={65}
-                    width={65}
-                    />
-                    <UNHabitIcon
-                    height={65}
-                    width={65}
+                    <FAOIcon
+                        height={70}
+                        width={180}
                     />
                     <UNDPIcon
-                    height={65}
-                    width={65}
+                        height={65}
+                        width={65}
                     />
                     <IOMIcon
-                    height={65}
-                    width={65}/>
-                    <FAOIcon
-                    height={70}
-                    width={70}
+                        height={75}
+                        width={190} />
+                                            <UnicefIcon
+                        height={62}
+                        width={95}
                     />
+                    <UNHabitIcon
+                        height={65}
+                        width={95}
+                    />
+
+                    <UNHCRIcon
+                        height={68}
+                        width={95}
+                    />
+
                 </div>
             </div>
         </nav>
