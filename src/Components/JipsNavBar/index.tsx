@@ -1,6 +1,7 @@
 import React from 'react';
 import styles from './styles.module.scss';
 import { FAOIcon, UnicefIcon, UNHCRIcon, UNHabitIcon, UNDPIcon, IOMIcon } from '../../icons';
+import PBFLogo from '../JipsNavBar/PBF.jpg';
 
 interface JipsNavBarProps {
     title: string,
@@ -28,7 +29,7 @@ export default function JipsNavBar(props: JipsNavBarProps) {
                     <IOMIcon
                         height={75}
                         width={190} />
-                                            <UnicefIcon
+                    <UnicefIcon
                         height={62}
                         width={95}
                     />
@@ -36,12 +37,14 @@ export default function JipsNavBar(props: JipsNavBarProps) {
                         height={65}
                         width={95}
                     />
-
                     <UNHCRIcon
                         height={68}
                         width={95}
                     />
-
+                    <img
+                        height={68}
+                        width={75}
+                        src={PBFLogo} />
                 </div>
             </div>
         </nav>
