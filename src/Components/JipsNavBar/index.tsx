@@ -20,30 +20,30 @@ export default function JipsNavBar(props: JipsNavBarProps) {
                 <div className={styles.logo}>
                     <FAOIcon
                         height={70}
-                        width={180}
+                        width={150}
                     />
                     <UNDPIcon
                         height={65}
-                        width={65}
+                        width={40}
                     />
                     <IOMIcon
                         height={75}
-                        width={190} />
+                        width={180} />
                     <UnicefIcon
                         height={62}
-                        width={95}
+                        width={115}
                     />
                     <UNHabitIcon
                         height={65}
-                        width={95}
+                        width={115}
                     />
                     <UNHCRIcon
                         height={68}
-                        width={95}
+                        width={115}
                     />
                     <img
                         height={68}
-                        width={75}
+                        width={85}
                         src={PBFLogo} />
                 </div>
             </div>
