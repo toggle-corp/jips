@@ -29,7 +29,8 @@ function JipsFooter(props: JipsFooterProps) {
             )}
             {lang === Language.ar && (
                 <div className={styles.container}>
-                    <div className={styles.subtitle}>
+                    <img src={image} className={styles.logoArb} alt="JIPS Logo" />
+                    <div className={styles.subtitleArb}>
                         {subTitle}
                     </div>
                     <div className={styles.title}>
