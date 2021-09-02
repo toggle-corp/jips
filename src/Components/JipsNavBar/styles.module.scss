@@ -25,13 +25,8 @@ nav {
 
             > .title {
                 font-family: 'Overpass', sans-serif;
-                font-size: 16px;
+                font-size: 20px;
                 font-weight: 800;
-                letter-spacing: 1px;
-                text-transform: uppercase;
-                text-align: left;
-                word-wrap: break-word;
-                line-height: 1;
                 color: #505BA1;
                 opacity:1;
                 padding: 0;
@@ -39,9 +34,9 @@ nav {
             }
             > .subtitle {
                 font-family: 'Overpass', sans-serif;
-                font-size: 16px;
+                font-size: 15px;
                 font-weight: 600;
-                letter-spacing: 1px;
+                letter-spacing: 2px;
                 text-align: left;
                 color: #2B2B2B;
                 display: block;
@@ -54,7 +49,7 @@ nav {
             justify-content: space-around;
             margin-top: 20px;
             margin-bottom: auto;
-            width: 50vw;
+            width: 40vw;
             img{
                 padding-left: 17px;
             }
