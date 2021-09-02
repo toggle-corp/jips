@@ -35,14 +35,13 @@ nav {
             }
             > .subtitle {
                 font-family: "Overpass", sans-serif;
-                font-size: 15px;
+                font-size: 16px;
                 font-weight: 600;
-                letter-spacing: 2px;
-                text-align: left;
+                line-height: 1;
                 color: #2b2b2b;
                 display: block;
-                height: 18px;
                 opacity: 1;
+                padding: 0;
             }
         }
         > .logo {
