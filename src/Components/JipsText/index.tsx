@@ -1,27 +1,39 @@
 import React from 'react';
-import {Typography} from 'antd';
-import {FileTextOutlined} from '@ant-design/icons';
+import { LanguageContext } from '../../Context';
+import { Language } from '../../types';
+
+import styles from './styles.module.scss';
 
 interface JipsTextProps {
-    title: string,
+    icon?: any,
+    title?: string,
     data: string,
 }
 
-export default function JipsText(props:JipsTextProps) {
-    const {title, data} = props;
-    const {Title, Paragraph} = Typography;
-    
+function JipsText(props: JipsTextProps) {
+    const { icon, title, data } = props;
+    const [text, setText] = React.useState("");
+
+    const language = React.useContext(LanguageContext);
+
     const parseText = () => {
-        const paragraphs = data.replace("/\r", "").split("/\n").map((para:string, index:any)=><Paragraph key={index}>{para}</Paragraph>);
+        const paragraphs = text.replace("/\r", "").split("/\n").map((para:string, index:any)=>{
+            return <p key={index} className={styles.paragraph} style={{textAlign:(language === Language.ar) ? "right" :"left"}}>{para}</p>;
+        });
         return paragraphs;
     };
 
+    React.useEffect(() => {
+        setText(data);
+    }, [data])
+
     return (
-        <div style={{minHeight:"29vh"}}>
-            <Typography style={{fontSize:"18px", color:"#0b0b92", fontWeight:600, marginBottom:'25px'}}> <FileTextOutlined /> {title}</Typography>
-            <Typography>
-                {parseText()}
-            </Typography>
+        <div className={styles.text}>
+            {title && language === Language.en &&<div className={styles.heading}>{icon} {title}</div>}
+            {title && language === Language.ar &&<div className={styles.headingar}>{title} {icon}</div>}
+            {parseText()}
         </div>
     );
 }
+
+export default React.memo(JipsText);

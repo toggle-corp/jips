@@ -1,0 +1,20 @@
+.sidebar{
+    display: flex;
+    flex-direction: column;
+    width: 33%;
+
+    > h2 {
+        font-size: "18px";
+        font-weight: 600;
+        letter-spacing: 1px;
+        color: #0b1ba5 !important;
+
+        >.ltr {
+            text-align: left;
+        }
+
+        >.rtl{
+            text-align: right;
+        }
+    }
+}

@@ -1,0 +1,16 @@
+.icon-text {
+    display: flex;
+    flex-wrap: wrap;
+
+    .icon {
+        flex-shrink: 0;
+    }
+}
+.text {
+    flex-shrink: 0;
+    flex-grow: 1;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    color:#852D57 ;
+    font-weight: 900;
+}

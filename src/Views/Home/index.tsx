@@ -1,42 +1,72 @@
-import React from 'react';
-import { useHistory } from 'react-router-dom';
-import { message } from 'antd';
+import React, { useState } from 'react';
 import * as XLSX from 'xlsx';
-import { JipsFileUploader } from '../../Components';
-function Home() {
+import JipsFileUpload from '../../Components/JipsFileUpload';
+import { Doc, Language } from '../../types';
 
-  const history = useHistory();
-  const handleFileUpload = async (file: File) => {
+import { parseExcelToSections, removeBlankRowAtBeginingAndEnd } from '../../utils/excelParserUtil';
+import { validate } from '../../utils/excelValidator';
 
-    const extensions = file.name.split("\.")[1];
-    if (['xls', 'xlsx'].indexOf(extensions) < 0){
-      message.error("Invalid File!");
-      return;
+import styles from './styles.module.scss';
+
+interface HomeProps {
+  setLang?: (lang: Language) => void,
+  setData?: (data: Doc) => void,
+}
+
+function Home(props: HomeProps) {
+  const { setLang, setData } = props;
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState("");
+
+  const handleFileUpload = (file: File) => {
+    const extensions = file.name.split(".")[1];
+    if (['xls', 'xlsx'].indexOf(extensions) < 0) {
+      alert("Invalid File!");
+      return false;
     }
-
     var reader = new FileReader();
+    setLoading(true);
     reader.onload = function (e) {
-      if (e.target !== null){
+      if (e.target !== null) {
         var data = e.target.result;
-        let readedData = XLSX.read(data, {type: 'binary'});
-        const wsname = readedData.SheetNames[1];
+        const readedData = XLSX.read(data, { type: 'binary' });
+        const wsname = readedData.SheetNames[0];
         const ws = readedData.Sheets[wsname];
-        const dataParse = XLSX.utils.sheet_to_json(ws, {header:1});
-        // modify the data here as per the need
-        console.log(dataParse);
+        const dataParse = XLSX.utils.sheet_to_json(ws, { header: 1 });
+
+        const cleanData = removeBlankRowAtBeginingAndEnd(dataParse);
+        if (validate(cleanData)){
+          const parsedData = parseExcelToSections(cleanData);
+          if (parsedData && setData) {
+            setData(parsedData);
+          }
+        } else {
+          setError("Invalid Excel File!");
+        }
       }
+      setLoading(false);
     };
-    reader.readAsBinaryString(file);
-    history.push('/dashboard');
+
+    window.setTimeout(() => {
+      reader.readAsBinaryString(file);
+    }, 0);
   }
 
   return (
-    <JipsFileUploader
-      name="file"
-      multiple={false}
-      beforeUpload={handleFileUpload}
-    />
+    <div className={styles.container}>
+      {loading ? (
+        "Processing file..."
+      ) : (
+        <JipsFileUpload
+          name="file"
+          multiple={false}
+          onFileOpen={handleFileUpload}
+          setLang={setLang!}
+          error={error}
+        />
+      )}
+    </div>
   );
 }
 
-export default Home;
+export default React.memo(Home);

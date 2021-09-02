@@ -1,77 +1,287 @@
 import React from 'react';
-import { Row, Col, Typography } from 'antd';
-import { JipsBarChart, JipsTable, JipsTableBar, JipsText, TableBar } from '../../../Components';
-import { UsergroupDeleteOutlined, MoneyCollectOutlined } from '@ant-design/icons';
-import JipsStackedBarChart from '../../../Components/JipsStackedBarChart';
-import JipsBarChart2 from '../../../Components/JipsBarChart2';
-import JipsTableBar2 from '../../../Components/JipsTableBar2';
+import { JipsBarChart, JipsStackedBarChart, JipsTable, JipsTableBar, JipsTitle } from '../../../Components';
+import JipsText from '../../../Components/JipsText';
+import { Dimension, Language, Section, SubSection } from '../../../types';
+import SideBar from '../SideBar';
+import { _cs } from '@togglecorp/fujs';
+import { Doc } from '../../../types';
+import { GiTakeMyMoney, GiGrain } from "react-icons/gi";
+import styles from './styles.module.scss';
+import { getActivityData, getGenderActivityData, getBarChartData, getTableBarData, getTableData, tableData } from '../../../utils/dataUtil';
+import { DataContext } from '../../../Context/DataContext';
+import { IDPsInCamps, IDPsReturnees, NonDisplaced, Nomade, IDPsOutOfCamp, ReturnRefugee } from '../../../icons';
+import { LanguageContext } from '../../../Context';
 
+function PartOne() {
+    const [dimension, setDimension] = React.useState<Dimension>({ height: 0, width: 0 });
 
-export default function PartOne() {
+    const [scopeData, setScopeData] = React.useState<tableData>({ columns: [], rows: [] });
+    const [sections, setSections] = React.useState<Section[]>([]);
+
+    const data: Doc = React.useContext(DataContext);
+    const language = React.useContext(LanguageContext);
+
+    React.useEffect(() => {
+        const width = window.screen.availWidth - 20;
+        const height = window.screen.availWidth * 0.71 - 100;
+
+        const filteredSections = data.sections.filter((section) => section.heading && section.heading !== "")
+        const tableInfo: tableData = getTableData(filteredSections[0].body[0]);
+
+        setDimension({ height: height, width: width });
+        setScopeData(tableInfo);
+        setSections(filteredSections);
+    }, [data]);
+
+    const displaySectionTwo = () => {
+        if (sections.length > 1) {
+            var rowCols;
+            var cahrtData = [];
+            const filteredSubSecs = sections[1].body.filter((subsec: SubSection) => subsec.vars.length > 0);
+            rowCols = (filteredSubSecs.length > 0) ? getTableBarData(filteredSubSecs[0]) : { columns: [], rows: [] };
+            cahrtData = (filteredSubSecs.length > 1) ? getBarChartData({ subsec: filteredSubSecs[1] }) : [];
+
+            return (
+                <div className={_cs(styles.row)}>
+                    {language === Language.en && (
+                        <>
+                            <div>
+                                {filteredSubSecs.length > 0 && (
+                                    <JipsTableBar columns={rowCols.columns} data={rowCols.rows} title={filteredSubSecs[0].subHeading} />
+                                )}
+
+                                {filteredSubSecs.length > 1 && (
+                                    <JipsBarChart data={cahrtData} height={200} width={dimension.width / 3 * 0.85} title={filteredSubSecs[1].subHeading} />
+                                )}
+                            </div>
+                        </>
+                    )}
+
+                    {language === Language.ar && (
+                        <>
+                            <div>
+                                {filteredSubSecs.length > 0 && (
+                                    <JipsTableBar columns={rowCols.columns} data={rowCols.rows} title={filteredSubSecs[0].subHeading} />
+                                )}
+                                {filteredSubSecs.length > 1 && (
+                                    <JipsBarChart data={cahrtData} height={200} width={dimension.width / 3 * 0.85} title={filteredSubSecs[1].subHeading} />
+                                )}
+                            </div>
+                        </>
+                    )}
+                </div>
+            );
+        }
+        return "No data available!"
+    }
+
+    const displaySectionThree = () => {
+        if (sections.length >= 3) {
+            const filteredSubSecs = sections[2].body.filter((subsec: SubSection) => subsec.vars.length > 0);
+            const disp = filteredSubSecs.map((subsec: SubSection) => {
+                const colRows = getTableBarData(subsec);
+                return <JipsTableBar columns={colRows.columns} data={colRows.rows} title={subsec.subHeading} />
+            });
+            return disp;
+        }
+        return "No data available!"
+    }
+
+    const displaySectionFour = () => {
+        if (sections.length >= 4) {
+            const filteredSubSecs = sections[3].body.filter((subsec: SubSection) => subsec.vars.length > 0);
+
+            const houseData = (filteredSubSecs.length > 0) ? getTableBarData(filteredSubSecs[0]) : { columns: [], rows: [] };
+            const houseTitle = (filteredSubSecs.length > 0) ? filteredSubSecs[0].subHeading : "";
+            const allActivities = filteredSubSecs.length > 1 ? getActivityData(filteredSubSecs[1]) : [];
+            const actheading = filteredSubSecs.length > 1 ? filteredSubSecs[1].subHeading : "";
+            const keys = filteredSubSecs[0].vars[0].data.keys;
+            const activitiesCategorical = keys.map((key: string) => {
+                return getGenderActivityData(allActivities, key);
+            });
+
+            const barChart = (filteredSubSecs.length > 2) ? getBarChartData({ subsec: filteredSubSecs[2] }) : [];
+            const barchartTitle = (filteredSubSecs.length > 2) ? filteredSubSecs[2].subHeading : "";
+            return (
+                <>
+                    <JipsTableBar columns={houseData.columns} data={houseData.rows} title={houseTitle} />
+                    <table>
+                        <tr>
+                            <td colSpan={2}>
+                                <div className={styles.heading}>
+                                    {actheading}
+                                </div>
+                            </td>
+                        </tr>
+                        {activitiesCategorical.map((activity, index) => {
+                            return (
+                                <tr>
+                                    {language === Language.en && (
+                                        <>
+                                            <td>
+                                                <div>
+                                                    {activity[0].key.toLowerCase().replace("-", "").replace(/\s/g, '') === "idpsincamps" && <IDPsInCamps />}
+                                                    {activity[0].key.toLowerCase().replace("-", "").replace(/\s/g, '') === "idpreturnees" && <IDPsReturnees />}
+                                                    {activity[0].key.toLowerCase().replace("-", "").replace(/\s/g, '') === "nondisplaced" && <NonDisplaced />}
+                                                    {activity[0].key.toLowerCase().replace("-", "").replace(/\s/g, '') === "damrahresidents" && <Nomade />}
+                                                    {activity[0].key.toLowerCase().replace("-", "").replace(/\s/g, '') === "nomade" && <Nomade />}
+                                                    {activity[0].key.toLowerCase().replace("-", "").replace(/\s/g, '') === "idpsoutofcamp" && <IDPsOutOfCamp />}
+                                                    {activity[0].key.toLowerCase().replace("-", "").replace(/\s/g, '') === "returnrefugee" && <ReturnRefugee />}
+                                                    <p style={{ fontSize: "12px" }}>{keys[index]}</p>
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <JipsStackedBarChart
+                                                    height={(index === activitiesCategorical.length - 1) ? 150 : 100}
+                                                    width={dimension.width / 3 * 0.85}
+                                                    data={activity}
+                                                    showLegends={index === activitiesCategorical.length - 1}
+                                                />
+                                            </td>
+                                        </>
+                                    )}
+                                    {language === Language.ar && (
+                                        <>
+                                            <td>
+                                                <JipsStackedBarChart
+                                                    height={(index === activitiesCategorical.length - 1) ? 150 : 100}
+                                                    width={dimension.width / 3 * 0.75}
+                                                    data={activity}
+                                                    showLegends={index === activitiesCategorical.length - 1}
+                                                />
+                                            </td>
+                                            <td>
+                                                <div>
+                                                    {activity[0].key.toLowerCase().replace("-", "").replace(/\s/g, '') === "idpsincamps" && <IDPsInCamps />}
+                                                    {activity[0].key.toLowerCase().replace("-", "").replace(/\s/g, '') === "idpreturnees" && <IDPsReturnees />}
+                                                    {activity[0].key.toLowerCase().replace("-", "").replace(/\s/g, '') === "nondisplaced" && <NonDisplaced />}
+                                                    {activity[0].key.toLowerCase().replace("-", "").replace(/\s/g, '') === "damrahresidents" && <Nomade />}
+                                                    {activity[0].key.toLowerCase().replace("-", "").replace(/\s/g, '') === "nomade" && <Nomade />}
+                                                    {activity[0].key.toLowerCase().replace("-", "").replace(/\s/g, '') === "idpsoutofcamp" && <IDPsOutOfCamp />}
+                                                    {activity[0].key.toLowerCase().replace("-", "").replace(/\s/g, '') === "returnrefugee" && <ReturnRefugee />}
+                                                    <p style={{ fontSize: "12px" }}>{keys[index]}</p>
+                                                </div>
+                                            </td>
+                                        </>
+                                    )}
+                                </tr>
+                            )
+                        })
+                        }
+                    </table>
+                    <div className={""}>
+                        <JipsBarChart data={barChart} title={barchartTitle} height={160} width={dimension.width / 3 * 0.9} />
+                    </div>
+                </>
+            );
+        }
+        return "No data available!"
+    }
+
     return (
-        <Row>
-            <Col span={16}>
-                <Row>
-                    <Col span={12}>
-                        <Row style={{ borderRight: "2px solid #e8e8e8", paddingRight: "10px" }}>
-                            <Col span={24} style={{ borderBottom: "2px solid #e8e8e8" }}>
-                                <JipsText
-                                    title="Background"
-                                    data={"The UN Peacebuilding Fund (PBF) projects in Darfur are implemented by UNDP, UNHCR, UNICEF, IOM, UN-Habitat and FAO. The agencies have actively taken part in designing the PBF data collection component for the eight localities in Darfur. The Durable Solutions Working Group (DSWG) has overseen all studies. The Joint IDP Profiling Service (JIPS) was requested by the DSWG to develop methodology, tools and conduct the  analysis in a consultative manner. IOM collected the household survey data and the Sudanese Development Initiative (SUDIA), has been managing the area-level data collection and analysis. In-depth analytical reports by locality available through the DSWG. "}
-                                />
-                            </Col>
-                            <Col span={24}>
-                                <JipsTable
-                                    title="Scope of the Study" />
-                            </Col>
-                        </Row>
-                    </Col>
-                    <Col span={12} style={{ padding: "10px" }}>
-                        <Row></Row>
-                        <Row>
-                            <Col span={24}>
-                                <TableBar />
-                            </Col>
-                        </Row>
-                    </Col>
-                </Row>
-                <Row style={{ borderTop: "2px solid #e8e8e8", paddingTop: "5px" }}>
-                    <Col span={24}>
-                        <Row>
-                            <Col><Typography style={{ fontSize: "18px", color: "#0b0b92", fontWeight: 600, marginBottom: '25px' }}> <UsergroupDeleteOutlined /> Basic demographics of the samples</Typography></Col>
-                        </Row>
-                        <Row>
-                            <Col span={14}><JipsTableBar2 /></Col>
-                            <Col span={10} style={{ borderLeft: "2px solid #e8e8e8", paddingTop: "5px" }} ><JipsBarChart /></Col>
-                        </Row>
-                    </Col>
-                </Row>
-            </Col>
-            <Col span={8} style={{ height: "87vh", borderLeft:"2px solid #e8e8e8" }}>
-                <Row style={{ paddingLeft: "30px" }}>
-                    <Col span={24}>
-                        <Typography style={{ fontSize: "18px", color: "#0b0b92", fontWeight: 600, marginBottom: '25px' }}> <MoneyCollectOutlined /> Livelihoods</Typography>
-                    </Col>
-                </Row>
-                <Row>
-                    <Col>
-                        <JipsTableBar />
-                    </Col>
-                </Row>
-                <Row>
-                    <Col>
-                        <JipsStackedBarChart />
-                        <Row>
-                    <Col style={{ paddingTop: "120px", paddingLeft:"50px"}}>
-                    <JipsBarChart2/>
-                    </Col>
-                </Row>
-                    </Col>
-                </Row>
+        <div className={_cs(styles.row, styles.mt5)}>
+            {language === Language.en && (
+                <>
+                    <div className={styles.w67}>
 
+                        <div className={_cs(styles.row)}>
+                            <div className={_cs(styles.col, styles.w50, styles.p5, styles.br)}>
+                                <JipsTitle title="Background" />
+                                <div className={_cs(styles.row, styles.mt10, "bg-grey")}>
+                                    <JipsText data={data.background} />
+                                </div>
+                                <div className={_cs(styles.row, styles.pt10)}>
+                                    <div className={styles.col}>
+                                        <JipsTitle title={data.sections[0].heading} />
+                                        <div className={_cs(styles.row, styles.pt10)}>
+                                            <JipsTable columns={scopeData.columns} rows={scopeData.rows} />
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
 
-            </Col>
-        </Row>
+                            {sections.length > 2 && (
+                                <div className={_cs(styles.col, styles.w50, styles.p5)} >
+                                    {sections.length > 1 && (
+                                        <>
+                                            <div className={_cs(styles.row)}>
+                                                <JipsTitle title={sections[1].heading} />
+                                            </div>
+                                            <div className={_cs(styles.mb, styles.bb, "bg-grey")}>
+                                                {displaySectionTwo()}
+                                            </div>
+                                        </>
+                                    )}
+                                    <JipsTitle title={sections[2].heading} icon={<GiGrain />} />
+                                    { displaySectionThree()}
+                                </div>
+                            )}
+                        </div>
+                    </div>
+                    <SideBar className={_cs(styles.bl, styles.p5)}>
+                        {sections.length >= 4 && (
+                            <>
+                                <JipsTitle title={sections[3].heading} icon={<GiTakeMyMoney />} />
+                                <div>
+                                    {displaySectionFour()}
+                                </div>
+                            </>
+                        )}
+                    </SideBar>
+                </>
+            )}
 
+            {language === Language.ar && (
+                <>
+                    <SideBar className={_cs(styles.br, styles.p5)}>
+                        {sections.length >= 4 && (
+                            <>
+                                <JipsTitle title={sections[3].heading} icon={<GiTakeMyMoney />} />
+                                <div>
+                                    {displaySectionFour()}
+                                </div>
+                            </>
+                        )}
+                    </SideBar>
+
+                    <div className={styles.w67}>
+                        <div className={_cs(styles.row)}>
+                            {sections.length > 2 && (
+                                <div className={_cs(styles.col, styles.w50, styles.p5)} >
+                                    {sections.length > 1 && (
+                                        <>
+                                            <div className={_cs(styles.row)}>
+                                                <JipsTitle title={sections[1].heading} />
+                                            </div>
+                                            <div className={_cs(styles.mb, styles.bb, "bg-grey")}>
+                                                {displaySectionTwo()}
+                                            </div>
+                                        </>
+                                    )}
+                                    <JipsTitle title={sections[2].heading} icon={<GiGrain />} />
+                                    { displaySectionThree()}
+                                </div>
+                            )}
+                            <div className={_cs(styles.col, styles.w50, styles.p5, styles.bl)}>
+                                <JipsTitle title="خلفية" />
+                                <div className={_cs(styles.row, styles.bb, styles.mt10, "bg-grey")}>
+                                    <JipsText data={data.background} />
+                                </div>
+                                <div className={_cs(styles.row, styles.pt10)}>
+                                    <div className={styles.col}>
+                                        <JipsTitle title={data.sections[0].heading} />
+                                        <div className={_cs(styles.row, styles.pt10)}>
+                                            <JipsTable columns={scopeData.columns} rows={scopeData.rows} />
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </>
+            )}
+        </div>
     );
 }
+
+export default React.memo(PartOne);

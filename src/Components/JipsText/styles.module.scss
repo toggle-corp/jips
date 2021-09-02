@@ -1,0 +1,17 @@
+.text{
+    display: flex;
+    flex-direction: column;
+
+    >.heading{
+        font-size: 15px;
+        color: #505BA1!important;
+        font-weight:600;
+        margin-bottom: 5px;
+        font-family: 'Overpass', sans-serif;
+    }
+    >  .paragraph{
+        color: #2B2B2B;
+        text-align: left;
+        font-size:14px;
+    }
+}

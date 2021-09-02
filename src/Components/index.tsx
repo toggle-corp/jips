@@ -1,9 +1,18 @@
-import JipsNavBar from './JipsNavBar';
-import JipsFileUploader from './JipsFileUploader';
-import JipsTable from './JipsTable';
-import JipsText from './JipsText';
 import JipsBarChart from './JipsBarChart';
-import JipsTableBar from './JipsTableBar';
-import TableBar from './TableBar';
+import JipsFileUpload from './JipsFileUpload';
+import JipsNavBar from './JipsNavBar';
+import JipsStackedBarChart from './JipsStackedBarChart';
+import JipsTable from './JipsTable';
+import JipsTableBar from './JipsTableBar'
+import JipsTitle from './JipsTitle';
 
-export {JipsBarChart, JipsNavBar, JipsFileUploader, JipsTable, JipsText, JipsTableBar, TableBar}
+
+export {
+    JipsBarChart,
+    JipsFileUpload,
+    JipsNavBar,
+    JipsStackedBarChart,
+    JipsTable,
+    JipsTableBar,
+    JipsTitle
+}

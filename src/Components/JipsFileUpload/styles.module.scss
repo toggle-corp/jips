@@ -1,0 +1,52 @@
+.center {
+    height: 40vh;
+    width: 40%;
+    border: 1px solid grey;
+    border-radius: 30px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: auto;
+    padding: 4% 4%;
+
+    > .error{
+        font-size: 21px;
+        font-weight: 600;
+        color: red;
+    }
+    > .link{
+        padding-top: 5%;
+    }
+
+    > .fileUploadWrapper{
+        border: "1px solid #000";
+        margin-top: auto;
+        margin-bottom: auto;
+        position: relative;
+        display: inline-block;
+
+        > .uploadbtn{
+            border: 2px solid #00008b;
+            color: #00008b;
+            background-color: white;
+            padding: 8px 20px;
+            border-radius: 8px;
+            font-size: 20px;
+            font-weight: bold;
+        }
+
+        > input[type=file]{
+            position: absolute;
+            font-size: 50px;
+            top: 0;
+            left: 0;
+            opacity: 0;
+            padding-bottom: 5%;
+        }
+    }
+    >h4{
+        margin-top: 10%;
+        margin-bottom: 2px;
+    }
+}
+

@@ -1,69 +1,86 @@
-import React, { PureComponent } from 'react';
-import { Typography } from 'antd';
-import { ComposedChart, Bar, Cell, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer, LabelList } from 'recharts';
+import React from 'react';
+import { unique } from '@togglecorp/fujs';
+import { BarChart, Bar, XAxis, YAxis, Legend, LabelList, ResponsiveContainer } from 'recharts';
+import { LanguageContext } from '../../Context';
+import { Language } from '../../types';
+import { colors } from '../../utils/colorUtil';
 
-const data = [
-  {
-    name: 'Camps IDPS',
-    "Work for profit":32 ,
-    "Own-use farming": 31,
-    "Out of labour force":37,
-  },
-  {
-    name: 'IDP Returnees',
-    "Work for profit": 30,
-    "Own-use farming": 32,
-    "Out of labour force":38,
-  },
-  {
-    name: 'Non displaced',
-    "Work for profit": 19,
-    "Own-use farming": 33,
-    "Out of labour force":48,
-  },
-];
+import styles from './styles.module.scss';
 
-export default class JipsStackedBarChart extends PureComponent {
+type JipsStackedBarChartProps = {
+  title?: string,
+  icon?: any,
+  data: any[],
+  height: number,
+  width: number,
+  showLegends?: boolean | false
+}
 
-  getStackedBars = () => {
+export default function JipsStackedBarChart(props: JipsStackedBarChartProps) {
+  const { height, width, icon, title, data, showLegends } = props;
 
+  const [graphData, setGraphData] = React.useState<any>([]);
+  const [legend, setLegend] = React.useState<boolean>(false);
+  const language = React.useContext(LanguageContext);
+
+  const renderGraph = () => {
+    const keySet1 = Object.keys(data[0]).filter((key: string) => key !== "name" && key !== "variable" && key !== "key");
+    const keySet2 = Object.keys(data[1]).filter((key: string) => key !== "name" && key !== "variable" && key !== "key");
+    const keySet = unique([...keySet1, ...keySet2]);
+    const bars: any = [];
+
+    keySet.forEach((payload: string, index: number) => {
+      const bar = <Bar
+        dataKey={payload}
+        stackId="1"
+        fill={colors[index]}
+      >
+        <LabelList dataKey={payload} fontSize={12} position="center" fill="#fff" />
+      </Bar>
+      bars.push(bar);
+    });
+
+    return bars;
   }
-  
-  render() {
-    const { Title } = Typography;
-    return (
-      <div style={{ minHeight: "29vh", maxHeight: "30vh", padding: "10px" }} >
-        <Typography>Main activity of working age persons (15-64 years)</Typography>
-        <ComposedChart
 
-          width={600}
-          height={280}
-          data={data}
-          layout="vertical"
-          margin={{
-            top: 20,
-            right: 30,
-            left: 20,
-            bottom: 5,
-          }}
-        >
-          <XAxis type="number" />
-          <YAxis dataKey="name" type="category" scale="band" />
-          <Tooltip />
-          <Legend />
-          <Bar dataKey="Work for profit" stackId="a" fill="#505BA1" >
-          <LabelList dataKey="Work for profit" position="middle" fill="#fff"/>
-          </Bar>
-          <Bar dataKey="Own-use farming" stackId="a" fill="#491746" >
-          <LabelList dataKey="Own-use farming" position="middle" fill="#fff"/>
-            </Bar>
-          <Bar dataKey="Out of labour force" stackId="a" fill="#852D57" >
-          <LabelList dataKey="Out of labour force" position="middle" fill="#fff"/>
-          </Bar>
-          
-        </ComposedChart>
+  React.useEffect(()=>{
+    setGraphData(data);
+    (showLegends) ? setLegend(true) : setLegend(false);
+  }, [data, showLegends]);
+
+  return (
+      <div className={styles.stackedbar}>
+        { title && language === Language.en && (
+        <div className={styles.heading}>
+          {icon} {title}
+        </div>
+      )}
+      { title && language === Language.ar && (
+        <div className={styles.heading} style={{textAlign:"right"}}>
+          {title} {icon}
+        </div>
+      )}
+        <ResponsiveContainer height={height} width={width}>
+          <BarChart
+            width={width-10}
+            height={(!showLegends)? height : height-75}
+            data={graphData}
+            layout="vertical"
+            margin={{
+              top: 5,
+              right: 30,
+              left: 20,
+              bottom: 15,
+            }}
+            barCategoryGap={1}
+            barSize={25}
+          >
+            <XAxis type="number" range={[0, 100]} hide={true} />
+            <YAxis dataKey="name" height={50} type="category" orientation={(language===Language.ar)?"right":"left"}/>
+            {legend && <Legend />}
+            {renderGraph()}
+          </BarChart>
+        </ResponsiveContainer>
       </div>
-
-    );  
-  }
+  );
 }

@@ -1,0 +1,70 @@
+.footer {
+    display: block;
+    width: 100%;
+    height: 60px !important;
+    display: flex;
+    background-color: #e6e7e8;
+    left: 0;
+    bottom: 0;
+    > .container {
+        width: 95%;
+        margin-left: auto;
+        margin-right: auto;
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        bottom: 20px;
+        left: 15px;
+        > .title {
+            display: block;
+            font-size: medium;
+            font-size: 17px;
+            text-align: left;
+            line-height: 1;
+            color: #2b2b2b;
+            letter-spacing: -0.26px;
+            opacity: 1;
+            padding: 0;
+            display: block;
+            margin-top: 25px;
+            left: 30px;
+        }
+
+        > .subtitle {
+            font-size: medium;
+            margin-left: 25%;
+            height: 17px;
+            text-align: left;
+            line-height: 1;
+            color: #2b2b2b;
+            letter-spacing: -0.26px;
+            display: block;
+            margin-top: 25px;
+        }
+        > .subtitleArb {
+            font-size: medium;
+            margin-right: 25%;
+            height: 17px;
+            text-align: left;
+            line-height: 1;
+            color: #2b2b2b;
+            letter-spacing: -0.26px;
+            display: block;
+            margin-top: 25px;
+        }
+        > .logo {
+            display: block;
+            width: auto;
+            height: 7vh;
+            margin-left: auto;
+            opacity: 1;
+        }
+        > .logoArb {
+            display: block;
+            width: auto;
+            height: 7vh;
+            margin-right: auto;
+            opacity: 1;
+        }
+    }
+}
